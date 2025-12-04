@@ -50,7 +50,7 @@ resource "aws_security_group_rule" "redis_in_cart" {
 }
 resource "aws_security_group_rule" "mysql_in_shipping" {
  type              = "ingress"
- description       = "inbound rule for incoming traffic from catalogue servers"
+ description       = "inbound rule for incoming traffic from shipping servers"
  from_port         = 3306
  to_port           = 3306
  protocol          = "tcp"
@@ -59,21 +59,21 @@ resource "aws_security_group_rule" "mysql_in_shipping" {
  }
 resource "aws_security_group_rule" "mysql_in_ratings" {
  type              = "ingress"
- description       = "inbound rule for incoming traffic from catalogue servers"
+ description       = "inbound rule for incoming traffic from ratings servers"
  from_port         = 3306
  to_port           = 3306
  protocol          = "tcp"
- security_group_id = module.mysql.sg_id
- source_security_group_id = module.ratings.sg_id
+ security_group_id = module.securitygroup["mysql"].sg_id
+ source_security_group_id = module.securitygroup["ratings"].sg_id
  }
 resource "aws_security_group_rule" "rabbitmq_in_payment" {
  type              = "ingress"
- description       = "inbound rule for incoming traffic from catalogue servers"
+ description       = "inbound rule for incoming traffic from payment servers"
  from_port         = 5672
  to_port           = 5672
  protocol          = "tcp"
- security_group_id = module.rabbitmq.sg_id
- source_security_group_id = module.payment.sg_id
+ security_group_id = module.securitygroup["rabbitmq"].sg_id
+ source_security_group_id = module.securitygroup["payment"].sg_id
  }
  resource "aws_security_group_rule" "rabbitmq_in_vpn" {
  type              = "ingress"
@@ -81,8 +81,8 @@ resource "aws_security_group_rule" "rabbitmq_in_payment" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.rabbitmq.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["rabbitmq"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
  ########## Allow ibound rule 22 from VPN source group ###########
 resource "aws_security_group_rule" "mongodb_in_vpn" {
@@ -91,8 +91,8 @@ resource "aws_security_group_rule" "mongodb_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.mongodb.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["mongodb"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
 resource "aws_security_group_rule" "redis_in_vpn" {
  type              = "ingress"
@@ -100,8 +100,8 @@ resource "aws_security_group_rule" "redis_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.redis.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["redis"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
 resource "aws_security_group_rule" "mysql_in_vpn" {
  type              = "ingress"
@@ -109,8 +109,8 @@ resource "aws_security_group_rule" "mysql_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.mysql.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["mysql"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
 
 #catalogue
@@ -120,8 +120,8 @@ resource "aws_security_group_rule" "catalogue_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.catalogue.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["catalogue"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
 #  resource "aws_security_group_rule" "catalogue_in_web" {
 #  type              = "ingress"
@@ -147,8 +147,8 @@ resource "aws_security_group_rule" "catalogue_in_app-lb" {
  from_port         = 8080
  to_port           = 8080
  protocol          = "tcp"
- security_group_id = module.catalogue.sg_id
- source_security_group_id = module.app-lb.sg_id
+ security_group_id = module.securitygroup["catalogue"].sg_id
+ source_security_group_id = module.securitygroup["app-lb"].sg_id
  }
 
 resource "aws_security_group_rule" "cart_in_vpn" {
@@ -157,8 +157,8 @@ resource "aws_security_group_rule" "cart_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.cart.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["cart"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
  }
 resource "aws_security_group_rule" "cart_in_app-lb" {
  type              = "ingress"
@@ -166,8 +166,8 @@ resource "aws_security_group_rule" "cart_in_app-lb" {
  from_port         = 8080
  to_port           = 8080
  protocol          = "tcp"
- security_group_id = module.cart.sg_id
- source_security_group_id = module.app-lb.sg_id
+ security_group_id = module.securitygroup["cart"].sg_id
+ source_security_group_id = module.securitygroup["app-lb"].sg_id
 }
 # resource "aws_security_group_rule" "cart_in_web" {
 #  type              = "ingress"
@@ -203,8 +203,8 @@ resource "aws_security_group_rule" "user_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.user.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["user"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
 resource "aws_security_group_rule" "user_in_app-lb" {
  type              = "ingress"
@@ -212,8 +212,8 @@ resource "aws_security_group_rule" "user_in_app-lb" {
  from_port         = 8080
  to_port           = 8080
  protocol          = "tcp"
- security_group_id = module.user.sg_id
- source_security_group_id = module.app-lb.sg_id
+ security_group_id = module.securitygroup["user"].sg_id
+ source_security_group_id = module.securitygroup["app-lb"].sg_id
 }
 # resource "aws_security_group_rule" "user_in_payment" {
 #  type              = "ingress"
@@ -241,8 +241,8 @@ resource "aws_security_group_rule" "payment_in_vpn" {
  from_port         = 22
  to_port           = 22
  protocol          = "tcp"
- security_group_id = module.payment.sg_id
- source_security_group_id = module.vpn.sg_id
+ security_group_id = module.securitygroup["payment"].sg_id
+ source_security_group_id = module.securitygroup["vpn"].sg_id
 }
 resource "aws_security_group_rule" "payment_in_app-lb" {
  type              = "ingress"
@@ -250,8 +250,8 @@ resource "aws_security_group_rule" "payment_in_app-lb" {
  from_port         = 8080
  to_port           = 8080
  protocol          = "tcp"
- security_group_id = module.payment.sg_id
- source_security_group_id = module.app-lb.sg_id
+ security_group_id = module.securitygroup["payment"].sg_id
+ source_security_group_id = module.securitygroup["app-lb"].sg_id
 }
 # resource "aws_security_group_rule" "payment_in_web" {
 #  type              = "ingress"
@@ -265,7 +265,7 @@ resource "aws_security_group_rule" "payment_in_app-lb" {
 
 
 
-resource "aws_security_group_rule" "shipping_in_vpn" {
+/* resource "aws_security_group_rule" "shipping_in_vpn" {
  type              = "ingress"
  description       = "inbound rule for incoming traffic from vpn servers"
  from_port         = 22
@@ -401,7 +401,7 @@ resource "aws_security_group_rule" "vpn_in_home" {
  security_group_id = module.vpn.sg_id
  cidr_blocks = ["0.0.0.0/0"]
  
-}
+} */
 
 
 
