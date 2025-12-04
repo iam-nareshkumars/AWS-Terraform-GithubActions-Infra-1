@@ -1,0 +1,20 @@
+- name: installing hashicorp {{ toolname }}
+  ansible.builtin.shell: set-hostname {{ toolname }}
+
+- name: install yum utils
+  ansible.builtin.shell:  yum install -y yum-utils
+
+- name: adding repo
+  shell: yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+- name: install yum
+  ansible.builtin.yum: 
+    name: "{{ toolname }}"
+    state: present
+
+- name: Start service vault
+  ansible.builtin.service:
+    name: "{{ toolname }}"
+    enabled: yes
+    state: started
+  

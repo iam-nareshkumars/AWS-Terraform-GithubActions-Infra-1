@@ -1,0 +1,42 @@
+- name: Set hostname for Jenkins
+  ansible.builtin.shell: set-hostname {{ toolname }}
+
+- name: Install Java 17 (required for Jenkins)
+  ansible.builtin.shell: dnf install -y java-17-openjdk
+
+- name: Install EPEL release
+  ansible.builtin.shell: dnf install -y epel-release
+
+- name: Add Jenkins repository
+  ansible.builtin.shell: |
+    echo "=== Adding Jenkins repository ==="
+    sudo tee /etc/yum.repos.d/jenkins.repo > /dev/null <<EOF
+    [jenkins]
+    name=Jenkins-stable
+    baseurl=https://pkg.jenkins.io/redhat-stable
+    gpgcheck=1
+    gpgkey=https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+    EOF
+
+- name: Import Jenkins GPG key
+  ansible.builtin.shell: |
+    echo "=== Importing Jenkins GPG key ==="
+    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+- name: Install Jenkins
+  ansible.builtin.shell: |
+    echo "=== Installing Jenkins ==="
+    sudo dnf install -y {{ toolname }}
+
+- name: Enable and start Jenkins service
+  ansible.builtin.service:
+    name: "{{ toolname }}"
+    enabled: yes
+    state: started
+
+- name: Check Jenkins service status
+  ansible.builtin.shell: |
+    echo "=== Jenkins service status ==="
+    sudo systemctl status jenkins --no-pager || true
+
+

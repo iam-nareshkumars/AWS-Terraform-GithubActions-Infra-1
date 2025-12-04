@@ -1,0 +1,78 @@
+name: Terraform VPC Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      TERRAFORM_ACTION:
+        description: "terraform infra deploy ? OR destroy ?"
+        required: true
+        type: choice
+        options:
+          - deploy
+          - destroy
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: AWS-devlopment
+    env:
+        AWS_REGION: 'us-east-1'  
+
+    steps:
+      # ------------------------------
+      # Checkout source code
+      # ------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # -------------------------
+      # AWS IAM cred
+      # -------------------------
+
+      - name: 'Configure AWS credentials'
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: ${{ env.AWS_REGION }}
+
+      # ------------------------------
+      # Setup Terraform
+      # ------------------------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # ------------------------------
+      # Terraform Init
+      # ------------------------------
+      - name: Terraform Init
+        run: |
+          cd 01-vpc
+          terraform init -reconfigure
+
+      # ------------------------------
+      # Terraform Plan
+      # ------------------------------
+      - name: Terraform Plan
+        run: |
+          cd 01-vpc
+          terraform plan
+          
+      # ---------------------------------------------------
+      # Terraform Apply (only when TERRAFORMACTION = deploy)
+      # ---------------------------------------------------
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deploy' }}
+        run: |
+          echo "Manual approval required before apply."
+          cd 01-vpc
+          terraform apply -auto-approve
+
+      # ---------------------------------------------------
+      # Terraform Destroy (only when TERRAFORMACTION = destroy)
+      # ---------------------------------------------------
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'destroy' }}
+        run: |
+          echo "Manual approval required before destroy."
+          cd 01-vpc
+          terraform destroy -auto-approve

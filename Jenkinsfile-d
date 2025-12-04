@@ -1,0 +1,112 @@
+pipeline {
+   agent {
+     node {
+        label 'jenkins-agent-2'
+        }
+}
+options {
+                timeout(time: 1, unit: 'HOURS') 
+                ansiColor('xterm')
+                disableConcurrentBuilds()
+            }
+// parameters { choice(name: 'TERRAFORMACTION', choices: ['createInfra', 'destroyInfra'], description: 'terraform infra creation') }
+//  Please do dedestroy the applications first like CATALOGUE, CART and others    
+    stages {
+        stage('cdn-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 08-cdn
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+stage('web_alb_external-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 07-web_alb-external
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+  stage('acm-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 06-acm
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+  stage('app-lb-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 05-app-lb-internal
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+  stage('databases-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 04-databases
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+ stage('vpn-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 03-vpn
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+ stage('SG-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 02-sg
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+stage('vpc-destroy'){
+
+        steps {
+          script {
+           sh """
+           cd 01-vpc
+           terraform init -reconfigure
+           terraform destroy -auto-approve
+           """
+          }
+      }
+}
+}
+}

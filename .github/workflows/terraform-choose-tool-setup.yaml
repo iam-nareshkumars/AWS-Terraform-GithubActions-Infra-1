@@ -1,0 +1,74 @@
+name: Terraform setup tools Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      ACTION:
+        description: "Select terraform action"
+        required: true
+        type: choice
+        options:
+          - apply
+          - destroy
+      TOOL:
+        description: "Select terraform target tool to install"
+        required: true
+        type: choice
+        options:
+          - vault
+          - tomcat
+
+concurrency:
+  group: terraform-pipeline
+  cancel-in-progress: false   # Same as Jenkins `disableConcurrentBuilds()`
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+        AWS_REGION: 'us-east-1'
+    
+
+    steps:
+      # ------------------------------
+      # Checkout repository
+      # ------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # -------------------------
+      # AWS IAM cred
+      # -------------------------
+
+      - name: 'Configure AWS credentials'
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: ${{ env.AWS_REGION }}
+
+      # ------------------------------
+      # Terraform Init
+      # ------------------------------
+      - name: Terraform Init
+        run: |
+          cd 002-tools_install
+          terraform init -reconfigure
+
+      # ------------------------------
+      # Terraform Plan
+      # ------------------------------
+      - name: Terraform Plan
+        run: |
+          cd 002-tools_install
+          terraform plan
+
+      # -----------------------------------------
+      # Terraform Apply or Destroy (param-based)
+      # -----------------------------------------
+      - name: Terraform Apply/Destroy
+        run: 
+          cd 002-tools_install
+          terraform ${{ github.event.inputs.ACTION }} \
+            -target=${{ github.event.inputs.TOOL }} \
+            -auto-approve

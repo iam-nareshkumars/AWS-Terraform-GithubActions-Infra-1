@@ -1,0 +1,23 @@
+- name: Configuring hostname
+  ansible.builtin.shell: set-hostname grafana
+
+- name: Create grafana user
+  ansible.builtin.user:
+    name: grafana
+
+- name: Copying repo
+  ansible.builtin.template:
+    src: grafana.repo
+    dest: /etc/yum.repos.d/grafana.repo
+
+- name: Installinging Grafana
+  ansible.builtin.dnf:
+    name: grafana
+    state: installed
+
+- name: Restarting service
+  ansible.builtin.systemd_service:
+    name: grafana-server
+    state: restarted
+    enabled: true
+    daemon_reload: true

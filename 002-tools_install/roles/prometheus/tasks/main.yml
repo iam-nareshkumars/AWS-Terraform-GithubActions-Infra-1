@@ -1,0 +1,33 @@
+- name: Set hostname for Jenkins
+  ansible.builtin.shell: set-hostname {{ toolname }}
+
+- name: Create {{ toolname }} user
+  ansible.builtin.user:
+    name: "{{ toolname }}"
+
+- name: Download & extract "{{ toolname }}"
+  ansible.builtin.unarchive:
+    src: "{{ url }}"
+    dest: /opt
+    remote_src: yes
+    owner: "{{ toolname }}"
+    group: "{{ toolname }}"
+
+- name: Copying Prometheus Config
+  ansible.builtin.template:
+    src: prometheus.yml
+    dest: /opt/prometheus-3.2.1.linux-amd64/prometheus.yml
+    owner: "{{ toolname }}"
+    group: "{{ toolname }}"
+    
+- name: Copying systemd file 
+  ansible.builtin.template:
+    src: prometheus.service
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Restarting service
+  ansible.builtin.systemd_service:
+    name: "{{ toolname }}"
+    state: restarted
+    enabled: true
+    daemon_reload: true
