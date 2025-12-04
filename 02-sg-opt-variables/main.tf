@@ -254,13 +254,7 @@ resource "aws_security_group_rule" "payment_in_app-lb" {
  source_security_group_id = module.securitygroup["app-lb"].sg_id
 }
 
-resource "aws_ssm_parameter" "sg_params" {
-  for_each = local.sg_modules
 
-  name  = "/${var.project}/${var.environment}/${each.key}_sg_id"
-  type  = "String"
-  value = each.value
-}
 
 # resource "aws_security_group_rule" "payment_in_web" {
 #  type              = "ingress"

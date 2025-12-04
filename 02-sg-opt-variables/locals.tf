@@ -102,20 +102,20 @@ locals {
 }
 
 locals {
-  sg_modules = {
-    web_alb  = module.web_alb.sg_id
-    app-lb   = module.app-lb.sg_id
-    vpn      = module.vpn.sg_id
-    mongodb  = module.mongodb.sg_id
-    catalogue = module.catalogue.sg_id
-    user     = module.user.sg_id
-    cart     = module.cart.sg_id
-    redis    = module.redis.sg_id
-    rabbitmq = module.rabbitmq.sg_id
-    mysql    = module.mysql.sg_id
-    payment  = module.payment.sg_id
-    shipping = module.shipping.sg_id
-    ratings  = module.ratings.sg_id
-    web      = module.web.sg_id
+  sg_ids = {
+    web_alb  = module.sg["web_alb"].sg_id
+    app-lb   = module.sg["app-lb"].sg_id
+    vpn      = module.sg["vpn"].sg_id
+    mongodb  = module.sg["mongodb"].sg_id
+    catalogue = module.sg["catalogue"].sg_id
+    user     = module.sg["user"].sg_id
+    cart     = module.sg["cart"].sg_id
+    redis    = module.sg["redis"].sg_id
+    rabbitmq = module.sg["rabbitmq"].sg_id
+    mysql    = module.sg["mysql"].sg_id
+    payment  = module.sg["payment"].sg_id
+    shipping = module.sg["shipping"].sg_id
+    ratings  = module.sg["ratings"].sg_id
+    web      = module.sg["web"].sg_id
   }
 }

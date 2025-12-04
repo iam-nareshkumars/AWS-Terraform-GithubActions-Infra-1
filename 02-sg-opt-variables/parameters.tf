@@ -1,10 +1,10 @@
-# resource "aws_ssm_parameter" "sg_params" {
-#   for_each = local.sg_modules
+resource "aws_ssm_parameter" "sg_params" {
+  for_each = local.sg_ids
 
-#   name  = "/${var.project}/${var.environment}/${each.key}_sg_id"
-#   type  = "String"
-#   value = each.value
-# }
+  name  = "/${var.project}/${var.environment}/${each.key}_sg_id"
+  type  = "String"
+  value = each.value
+}
 
 
 
