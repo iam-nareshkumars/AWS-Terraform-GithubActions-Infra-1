@@ -46,7 +46,7 @@ jobs:
       # ------------------------------
       - name: Terraform Init
         run: |
-          cd 02-sg
+          cd 02-sg-opt-variables
           terraform init -reconfigure
 
       # ------------------------------
