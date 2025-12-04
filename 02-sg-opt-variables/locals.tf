@@ -119,3 +119,13 @@ locals {
     web      = module.securitygroup["web"].sg_id
   }
 }
+
+locals {
+  sg_in_rules = {
+    mongodb_in_catalogue = {
+      description = "inbound rule for incoming traffic from catalogue servers"
+      from_port         = 27017
+      to_port           = 27017
+      }
+  }
+}
