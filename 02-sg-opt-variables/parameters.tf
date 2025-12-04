@@ -1,4 +1,17 @@
-resource "aws_ssm_parameter" "web_alb_sg_id" {
+resource "aws_ssm_parameter" "sg_params" {
+  for_each = local.sg_modules
+
+  name  = "/${var.project}/${var.environment}/${each.key}_sg_id"
+  type  = "String"
+  value = each.value
+}
+
+
+
+
+
+
+/* resource "aws_ssm_parameter" "web_alb_sg_id" {
   name  = "/${var.project}/${var.environment}/web_alb_sg_id"
   type  = "StringList"
   value =  module.web_alb.sg_id
@@ -68,3 +81,4 @@ resource "aws_ssm_parameter" "web_sg_id" {
   type  = "String"
   value =  module.web.sg_id
 }
+ */

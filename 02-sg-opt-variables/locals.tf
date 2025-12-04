@@ -100,3 +100,22 @@ locals {
     }
   }
 }
+
+locals {
+  sg_modules = {
+    web_alb  = module.web_alb.sg_id
+    app-lb   = module.app-lb.sg_id
+    vpn      = module.vpn.sg_id
+    mongodb  = module.mongodb.sg_id
+    catalogue = module.catalogue.sg_id
+    user     = module.user.sg_id
+    cart     = module.cart.sg_id
+    redis    = module.redis.sg_id
+    rabbitmq = module.rabbitmq.sg_id
+    mysql    = module.mysql.sg_id
+    payment  = module.payment.sg_id
+    shipping = module.shipping.sg_id
+    ratings  = module.ratings.sg_id
+    web      = module.web.sg_id
+  }
+}
