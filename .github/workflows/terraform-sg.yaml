@@ -54,7 +54,7 @@ jobs:
       # ------------------------------
       - name: Terraform Plan
         run: |
-          cd 02-sg
+          cd 02-sg-opt-variables
           terraform plan
           
       # ---------------------------------------------------
@@ -63,9 +63,9 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'creation' }}
         run: |
-          echo "Manual approval required before apply."
-          cd 02-sg
-          terraform apply -auto-approve
+          
+      #    cd 02-sg-opt-variables
+      #   terraform apply -auto-approve
 
       # ---------------------------------------------------
       # Terraform Destroy (only when TERRAFORMACTION = deletion)
@@ -74,5 +74,5 @@ jobs:
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deletion' }}
         run: |
           echo "Manual approval required before destroy."
-          cd 02-sg
+          cd 02-sg-opt-variables
           terraform destroy -auto-approve
