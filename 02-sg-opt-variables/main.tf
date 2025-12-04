@@ -1,6 +1,6 @@
 module "securitygroup" {
   for_each = local.sg_map
-  source = var.url
+  source = "git::https://github.com/Iam-naresh-devops/SG_module.git"
   environment = var.environment
   project = var.project
   vpc_id = data.aws_ssm_parameter.vpc_id.value
