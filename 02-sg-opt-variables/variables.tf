@@ -19,9 +19,7 @@ variable "sg_description" {
    default = "Default SG description for services needing dynamic description"
 }
 
-variable "url" {
-   default = "git::https://github.com/Iam-naresh-devops/SG_module.git" 
-}
+
 
 
 # variable "tools" {

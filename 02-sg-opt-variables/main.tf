@@ -8,11 +8,35 @@ module "securitygroup" {
   sg_description =  each.value.sg_description
 }
 
+resource "aws_security_group_rule" "dynamic_rules" {
+  for_each = local.sg_rules
+
+  type        = each.value.type
+  description = each.value.description
+  from_port   = each.value.from_port
+  to_port     = each.value.to_port
+  protocol    = each.value.protocol
+
+  security_group_id = module.securitygroup[each.value.target_sg].sg_id
+
+  source_security_group_id = (
+    each.value.source_sg != null ?
+    module.securitygroup[each.value.source_sg].sg_id :
+    null
+  )
+
+  cidr_blocks = (
+    each.value.cidr_blocks != null ?
+    each.value.cidr_blocks :
+    null
+  )
+}
+
 
 
 # INCOMING RULUES #App ALB should accept connections only from cart,shipping etc since it is internal(NOT NOT YET)
 
-resource "aws_security_group_rule" "mongodb_in_catalogue" {
+/* resource "aws_security_group_rule" "mongodb_in_catalogue" {
  type              = "ingress"
  description       = "inbound rule for incoming traffic from catalogue servers"
  from_port         = 27017
@@ -168,7 +192,7 @@ resource "aws_security_group_rule" "cart_in_app-lb" {
  protocol          = "tcp"
  security_group_id = module.securitygroup["cart"].sg_id
  source_security_group_id = module.securitygroup["app-lb"].sg_id
-}
+} */
 # resource "aws_security_group_rule" "cart_in_web" {
 #  type              = "ingress"
 #  description       = "inbound rule for incoming traffic from vpn servers"

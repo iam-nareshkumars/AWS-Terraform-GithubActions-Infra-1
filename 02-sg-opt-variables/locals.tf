@@ -120,12 +120,97 @@ locals {
   }
 }
 
+# locals {
+#   sg_in_rules = {
+#     mongodb_in_catalogue = {
+#       description = "inbound rule for incoming traffic from catalogue servers"
+#       from_port         = 27017
+#       to_port           = 27017
+#       }
+#   }
+# }
+
 locals {
-  sg_in_rules = {
+  sg_rules = {
+    # ---------- MongoDB ----------
     mongodb_in_catalogue = {
-      description = "inbound rule for incoming traffic from catalogue servers"
-      from_port         = 27017
-      to_port           = 27017
-      }
+      type          = "ingress"
+      description   = "incoming from catalogue"
+      from_port     = 27017
+      to_port       = 27017
+      protocol      = "tcp"
+      target_sg     = "mongodb"
+      source_sg     = "catalogue"
+      cidr_blocks   = null
+    }
+
+    mongodb_in_user = {
+      type          = "ingress"
+      description   = "incoming from user"
+      from_port     = 27017
+      to_port       = 27017
+      protocol      = "tcp"
+      target_sg     = "mongodb"
+      source_sg     = "user"
+      cidr_blocks   = null
+    }
+
+    # ---------- Redis ----------
+    redis_in_user = {
+      type          = "ingress"
+      description   = "incoming from user"
+      from_port     = 6379
+      to_port       = 6379
+      protocol      = "tcp"
+      target_sg     = "redis"
+      source_sg     = "user"
+      cidr_blocks   = null
+    }
+
+    redis_in_cart = {
+      type          = "ingress"
+      description   = "incoming from cart"
+      from_port     = 6379
+      to_port       = 6379
+      protocol      = "tcp"
+      target_sg     = "redis"
+      source_sg     = "cart"
+      cidr_blocks   = null
+    }
+
+    # ---------- MySQL ----------
+    mysql_in_shipping = {
+      type        = "ingress"
+      description = "incoming from shipping"
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      target_sg   = "mysql"
+      source_sg   = "shipping"
+      cidr_blocks = null
+    }
+
+    mysql_in_ratings = {
+      type        = "ingress"
+      description = "incoming from ratings"
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      target_sg   = "mysql"
+      source_sg   = "ratings"
+      cidr_blocks = null
+    }
+
+    # ---------- Example CIDR rule ----------
+    web_in_home = {
+      type          = "ingress"
+      description   = "incoming from internet"
+      from_port     = 80
+      to_port       = 80
+      protocol      = "tcp"
+      target_sg     = "web"
+      source_sg     = null
+      cidr_blocks   = ["0.0.0.0/0"]
+    }
   }
 }
