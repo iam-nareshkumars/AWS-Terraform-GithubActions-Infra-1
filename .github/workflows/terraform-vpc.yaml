@@ -47,7 +47,7 @@ jobs:
       - name: Terraform Init
         run: |
           cd 01-vpc
-          terraform init  -var="dev"  -reconfigure
+          terraform init  -var="environment=dev"  -reconfigure
 
       # ------------------------------
       # Terraform Plan
@@ -55,7 +55,7 @@ jobs:
       - name: Terraform Plan
         run: |
           cd 01-vpc
-          terraform plan -var="dev"
+          terraform plan -var="environment=dev"
           
       # ---------------------------------------------------
       # Terraform Apply (only when TERRAFORMACTION = deploy)
