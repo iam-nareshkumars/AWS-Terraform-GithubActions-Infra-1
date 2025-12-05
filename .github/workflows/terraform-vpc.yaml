@@ -77,7 +77,7 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deploy' }}
         run: |
-          echo "Manual approval required before apply."
+          
           cd 01-vpc
           terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
       #    terraform apply -auto-approve
@@ -89,6 +89,6 @@ jobs:
       - name: Terraform Destroy
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'destroy' }}
         run: |
-          echo "Manual approval required before destroy."
+          
           cd 01-vpc
-          terraform destroy -var="environment=dev" -auto-approve
+          terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
