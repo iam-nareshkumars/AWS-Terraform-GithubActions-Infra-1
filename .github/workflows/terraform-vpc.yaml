@@ -47,8 +47,9 @@ jobs:
       - name: Terraform Init
         run: |
           cd 01-vpc
-          terraform init -reconfigure
-      #    terraform init  -var="environment=dev"  -reconfigure
+          terraform init  -var="environment=dev"  -reconfigure
+      #     terraform init -reconfigure
+          
 
       # ------------------------------
       # Terraform Plan
@@ -56,8 +57,8 @@ jobs:
       - name: Terraform Plan
         run: |
           cd 01-vpc
-          terraform plan
-      #    terraform plan -var="environment=dev"
+      
+          terraform plan -var="environment=dev"
           
       # ---------------------------------------------------
       # Terraform Apply (only when TERRAFORMACTION = deploy)
@@ -67,7 +68,9 @@ jobs:
         run: |
           echo "Manual approval required before apply."
           cd 01-vpc
-          terraform apply -auto-approve
+          terraform apply -var="environment=dev" -auto-approve
+      #    terraform apply -auto-approve
+          
 
       # ---------------------------------------------------
       # Terraform Destroy (only when TERRAFORMACTION = destroy)
@@ -77,4 +80,4 @@ jobs:
         run: |
           echo "Manual approval required before destroy."
           cd 01-vpc
-          terraform destroy -auto-approve
+          terraform destroy -var="environment=dev" -auto-approve
