@@ -79,7 +79,7 @@ jobs:
         run: |
           echo "Manual approval required before apply."
           cd 01-vpc
-      #    terraform apply -var="environment=dev" -auto-approve
+          terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
       #    terraform apply -auto-approve
           
 
