@@ -201,6 +201,304 @@ locals {
       cidr_blocks = null
     }
 
+
+    ############################################
+    # ---------------- RabbitMQ ----------------
+    ############################################
+
+    rabbitmq_in_payment = {
+      type        = "ingress"
+      description = "incoming from payment"
+      from_port   = 5672
+      to_port     = 5672
+      protocol    = "tcp"
+      target_sg   = "rabbitmq"
+      source_sg   = "payment"
+      cidr_blocks = null
+    }
+
+    rabbitmq_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "rabbitmq"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- Catalogue ----------------
+    ############################################
+
+    catalogue_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "catalogue"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    catalogue_in_app_lb = {
+      type        = "ingress"
+      description = "incoming from app-lb"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      target_sg   = "catalogue"
+      source_sg   = "app-lb"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- Cart ---------------------
+    ############################################
+
+    cart_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "cart"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    cart_in_app_lb = {
+      type        = "ingress"
+      description = "incoming from app-lb"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      target_sg   = "cart"
+      source_sg   = "app-lb"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- User ---------------------
+    ############################################
+
+    user_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "user"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    user_in_app_lb = {
+      type        = "ingress"
+      description = "incoming from app-lb"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      target_sg   = "user"
+      source_sg   = "app-lb"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- Payment ------------------
+    ############################################
+
+    payment_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "payment"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    payment_in_app_lb = {
+      type        = "ingress"
+      description = "incoming from app-lb"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      target_sg   = "payment"
+      source_sg   = "app-lb"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- Shipping -----------------
+    ############################################
+
+    shipping_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "shipping"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    shipping_in_app_lb = {
+      type        = "ingress"
+      description = "incoming from app-lb"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      target_sg   = "shipping"
+      source_sg   = "app-lb"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- Ratings ------------------
+    ############################################
+
+    ratings_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "ratings"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    ratings_in_app_lb = {
+      type        = "ingress"
+      description = "incoming from app-lb"
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      target_sg   = "ratings"
+      source_sg   = "app-lb"
+      cidr_blocks = null
+    }
+
+
+
+    ############################################
+    # ---------------- Web ----------------------
+    ############################################
+
+    web_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      target_sg   = "web"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    web_in_home = {
+      type        = "Ingress"
+      description = "incoming from internet"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "web"
+      source_sg   = null
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+
+
+
+    ############################################
+    # ---------------- App-LB -------------------
+    ############################################
+
+    app_lb_in_vpn = {
+      type        = "ingress"
+      description = "incoming from vpn"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "app-lb"
+      source_sg   = "vpn"
+      cidr_blocks = null
+    }
+
+    app_lb_in_web = {
+      type        = "ingress"
+      description = "incoming from web"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "app-lb"
+      source_sg   = "web"
+      cidr_blocks = null
+    }
+
+    app_lb_in_cart = {
+      type        = "ingress"
+      description = "incoming from cart"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "app-lb"
+      source_sg   = "cart"
+      cidr_blocks = null
+    }
+
+    app_lb_in_user = {
+      type        = "ingress"
+      description = "incoming from user"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "app-lb"
+      source_sg   = "user"
+      cidr_blocks = null
+    }
+
+    app_lb_in_payment = {
+      type        = "ingress"
+      description = "incoming from payment"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "app-lb"
+      source_sg   = "payment"
+      cidr_blocks = null
+    }
+
+    app_lb_in_shipping = {
+      type        = "ingress"
+      description = "incoming from shipping"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      target_sg   = "app-lb"
+      source_sg   = "shipping"
+      cidr_blocks = null
+    }
+
+  }
+
+
     # ---------- Example CIDR rule ----------
     web_in_home = {
       type          = "ingress"
@@ -213,4 +511,4 @@ locals {
       cidr_blocks   = ["0.0.0.0/0"]
     }
   }
-}
+
