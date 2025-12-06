@@ -500,7 +500,7 @@ locals {
 
 
     # ---------- Example CIDR rule ----------
-    web_in_home = {
+  /*   web_in_home = {
       type          = "ingress"
       description   = "incoming from internet"
       from_port     = 80
@@ -509,6 +509,6 @@ locals {
       target_sg     = "web"
       source_sg     = null
       cidr_blocks   = ["0.0.0.0/0"]
-    }
+    } */
   }
 
