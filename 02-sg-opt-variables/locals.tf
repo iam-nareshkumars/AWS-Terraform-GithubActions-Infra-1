@@ -414,7 +414,7 @@ locals {
     }
 
     web_in_home = {
-      type        = "Ingress"
+      type        = "ingress"
       description = "incoming from internet"
       from_port   = 80
       to_port     = 80
