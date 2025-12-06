@@ -1,4 +1,4 @@
-name: Terraform VPC Pipeline - 001
+name: Terraform AWS VPC-SecurityGroups Pipeline
 
 on:
   workflow_dispatch:
@@ -92,4 +92,70 @@ jobs:
           
           cd 01-vpc
           terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
+  # ---------------------------------------------------
+  #  **********************************************
+  # Terraform Security groups
+  # **********************************************
+  # ---------------------------------------------------
+  terrafom-securitygroups:  
+   runs-on: ubuntu-latest
+   env:
+        AWS_REGION: 'us-east-1'
+   
+   steps:
+      # ------------------------------
+      # Checkout source code
+      # ------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # -------------------------
+      # AWS IAM cred
+      # -------------------------
+
+      - name: 'Configure AWS credentials'
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: ${{ env.AWS_REGION }}
      
+      # ------------------------------
+      # Setup Terraform
+      # ------------------------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # ------------------------------
+      # Terraform Init
+      # ------------------------------
+      - name: Terraform Init
+        run: |
+          cd 02-sg-opt-variables
+          terraform init  -var=${{ github.event.inputs.Terraform_Environment }} -reconfigure
+
+      # ------------------------------
+      # Terraform Plan
+      # ------------------------------
+      - name: Terraform Plan
+        run: |
+          cd 02-sg-opt-variables
+          terraform plan -refresh-only -var=${{ github.event.inputs.Terraform_Environment }}
+          
+      # ---------------------------------------------------
+      # Terraform Apply (only when TERRAFORMACTION = creation)
+      # ---------------------------------------------------
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'creation' }}
+        run: |
+           cd 02-sg-opt-variables
+           terraform apply -var=${{ github.event.inputs.Terraform_Environment }} -auto-approve
+
+      # ---------------------------------------------------
+      # Terraform Destroy (only when TERRAFORMACTION = deletion)
+      # ---------------------------------------------------
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deletion' }}
+        run: |
+          echo "Manual approval required before destroy."
+          cd 02-sg-opt-variables
+          terraform destroy -var=${{ github.event.inputs.Terraform_Environment }} -auto-approve
