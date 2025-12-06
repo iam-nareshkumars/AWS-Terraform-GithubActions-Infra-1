@@ -64,7 +64,7 @@ jobs:
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'creation' }}
         run: |
            cd 02-sg-opt-variables
-           terraform apply -auto-approve
+      #     terraform apply -auto-approve
 
       # ---------------------------------------------------
       # Terraform Destroy (only when TERRAFORMACTION = deletion)
