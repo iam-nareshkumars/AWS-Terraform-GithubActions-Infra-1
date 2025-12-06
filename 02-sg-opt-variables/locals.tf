@@ -496,6 +496,18 @@ locals {
       cidr_blocks = null
     }
 
+    # ---------- VPN ----------
+    vpn_in_home = {
+      type        = "ingress"
+      description = "incoming from home"
+      from_port   = 0
+      to_port     = 65535
+      protocol    = "tcp"
+      target_sg   = "vpn"
+      source_sg   = null
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+
   }
 
 
