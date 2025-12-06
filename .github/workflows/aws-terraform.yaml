@@ -58,7 +58,7 @@ jobs:
       - name: Terraform Init
         run: 
           cd 01-vpc
-          terraform init  -var=${{ github.event.inputs.Terraform_Environment }}  -reconfigure
+          terraform init  -var="environment=${{ github.event.inputs.Terraform_Environment }}"  -reconfigure
       #     terraform init -reconfigure
           
 
@@ -131,7 +131,7 @@ jobs:
       - name: Terraform Init
         run: |
           cd 02-sg-opt-variables
-          terraform init  -var=${{ github.event.inputs.Terraform_Environment }} -reconfigure
+          terraform init  -var="environment=${{ github.event.inputs.Terraform_Environment }}" -reconfigure
 
       # ------------------------------
       # Terraform Plan
@@ -139,7 +139,7 @@ jobs:
       - name: Terraform Plan
         run: |
           cd 02-sg-opt-variables
-          terraform plan -refresh-only -var=${{ github.event.inputs.Terraform_Environment }}
+          terraform plan -refresh-only -var="environment=${{ github.event.inputs.Terraform_Environment }}"
           
       # ---------------------------------------------------
       # Terraform Apply (only when TERRAFORMACTION = creation)
@@ -148,7 +148,7 @@ jobs:
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'creation' }}
         run: |
            cd 02-sg-opt-variables
-           terraform apply -var=${{ github.event.inputs.Terraform_Environment }} -auto-approve
+           terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
 
       # ---------------------------------------------------
       # Terraform Destroy (only when TERRAFORMACTION = deletion)
@@ -158,4 +158,4 @@ jobs:
         run: |
           echo "Manual approval required before destroy."
           cd 02-sg-opt-variables
-          terraform destroy -var=${{ github.event.inputs.Terraform_Environment }} -auto-approve
+          terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
