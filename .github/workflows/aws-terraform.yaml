@@ -18,17 +18,16 @@ on:
            - dev
            - staging
            - prod
-env:
-
-   AWS_REGION: 'us-east-1'        
+           
 
 
 jobs:
-  Job1-terraform-VPC: 
+  terraform-VPC: 
     runs-on: ubuntu-latest
   #  environment: AWS-devlopment
     
- 
+    env:
+        AWS_REGION: 'us-east-1'  
 
     steps:
       # ------------------------------
@@ -93,18 +92,14 @@ jobs:
           
           cd 01-vpc
           terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
-
-
   # ---------------------------------------------------
   #  **********************************************
   # Terraform Security groups
   # **********************************************
   # ---------------------------------------------------
-
-
-  Job2-terraform-securitygroups:  
+  terrafom-securitygroups:  
    runs-on: ubuntu-latest
-   needs: terraform-VPC
+   
    env:
         AWS_REGION: 'us-east-1'
    
