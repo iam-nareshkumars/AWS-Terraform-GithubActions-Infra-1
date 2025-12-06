@@ -1,4 +1,4 @@
-name: Terraform AWS VPC-SecurityGroups Pipeline
+name: Terraform and AWS VPC-SecurityGroups Pipeline
 
 on:
   workflow_dispatch:
