@@ -1,4 +1,4 @@
-name: Terraform and AWS VPC-SecurityGroups Pipeline
+name: Terraform AWS VPC-SecurityGroups Pipeline
 
 on:
   workflow_dispatch:
@@ -19,8 +19,9 @@ on:
            - staging
            - prod
 env:
-  AWS_REGION: 'us-east-1'
-        
+
+   AWS_REGION: 'us-east-1'        
+
 
 jobs:
   Job1-terraform-VPC: 
@@ -102,9 +103,9 @@ jobs:
 
 
   Job2-terraform-securitygroups:  
-  Job2-terraform-securitygroups:  
    runs-on: ubuntu-latest
-   needs: Job1-terraform-VPC
+   needs: terraform-VPC
+   env:
         AWS_REGION: 'us-east-1'
    
    steps:
