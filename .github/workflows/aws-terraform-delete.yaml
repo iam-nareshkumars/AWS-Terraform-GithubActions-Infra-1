@@ -80,7 +80,7 @@ jobs:
           terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
 
   #**********************************************  
-  # Terraform Security groups
+  # Terraform VPC
   # **********************************************
 
   job2-terraform-VPC:
