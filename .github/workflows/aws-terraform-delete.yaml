@@ -32,8 +32,6 @@ jobs:
   job1-terrafom-securitygroups:
    name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing security groups, creating incoming rules etc"
    runs-on: ubuntu-latest
-   
-   
    env:
         AWS_REGION: 'us-east-1'
    

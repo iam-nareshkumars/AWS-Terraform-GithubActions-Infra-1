@@ -70,7 +70,7 @@ jobs:
         run: |
           cd 01-vpc
       
-          terraform plan -refresh-only -var="environment=${{ github.event.inputs.Terraform_Environment }}"
+          terraform plan -var="environment=${{ github.event.inputs.Terraform_Environment }}"
           
       # ---------------------------------------------------
       # Terraform Apply (only when TERRAFORMACTION = deploy)
