@@ -132,4 +132,4 @@ jobs:
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'destroy' }}
         run: |
             cd 01-vpc
-            terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
+            terraform destroy -lock=false -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
