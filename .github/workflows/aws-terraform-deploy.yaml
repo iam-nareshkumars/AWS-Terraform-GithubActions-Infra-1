@@ -2,14 +2,14 @@ name: Deploy Terraform AWS VPC-SecurityGroups Pipeline
 
 on:
   workflow_dispatch:
-    inputs:
-      TERRAFORM_ACTION:
+   inputs:
+     TERRAFORM_ACTION:
         description: "terraform infra deploy ?"
         required: true
         type: choice
         options:
           - deploy
-      Terraform_Environment:
+     Terraform_Environment:
          description: "Choose your environment"
          required: true
          type: choice

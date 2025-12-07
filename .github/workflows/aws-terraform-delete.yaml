@@ -8,7 +8,6 @@ on:
         required: true
         type: choice
         options:
- #         - deploy
           - destroy
       Terraform_Environment:
          description: "Choose your environment"
