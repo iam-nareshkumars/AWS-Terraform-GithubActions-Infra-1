@@ -1,15 +1,14 @@
-name: Terraform AWS VPC-SecurityGroups Pipeline
+name: Deploy Terraform AWS VPC-SecurityGroups Pipeline
 
 on:
   workflow_dispatch:
     inputs:
       TERRAFORM_ACTION:
-        description: "terraform infra deploy ? OR destroy ?"
+        description: "terraform infra deploy ?"
         required: true
         type: choice
         options:
           - deploy
-          - destroy
       Terraform_Environment:
          description: "Choose your environment"
          required: true
@@ -83,17 +82,7 @@ jobs:
           cd 01-vpc
           terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
       
-          
 
-      # ---------------------------------------------------
-      # Terraform Destroy (only when TERRAFORMACTION = destroy)
-      # ---------------------------------------------------
-      - name: Terraform Destroy
-        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'destroy' }}
-        run: |
-          
-          cd 01-vpc
-          terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
   #**********************************************  
   # Terraform Security groups
   # **********************************************
@@ -154,12 +143,3 @@ jobs:
            cd 02-sg-opt-variables
            terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
 
-      # ---------------------------------------------------
-      # Terraform Destroy (only when TERRAFORMACTION = deletion)
-      # ---------------------------------------------------
-      - name: Terraform Destroy
-        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deletion' }}
-        run: |
-          echo "Manual approval required before destroy."
-          cd 02-sg-opt-variables
-          terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
