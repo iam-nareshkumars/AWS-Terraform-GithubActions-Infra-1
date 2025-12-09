@@ -2,150 +2,123 @@ name: OIDC pipeline to Deploy Terraform AWS VPC-SecurityGroups
 
 on:
   workflow_dispatch:
-   inputs:
-     TERRAFORM_ACTION:
+    inputs:
+      TERRAFORM_ACTION:
         description: "terraform infra deploy ?"
         required: true
         type: choice
         options:
           - deploy
-     Terraform_Environment:
-         description: "Choose your environment"
-         required: true
-         type: choice
-         options: 
-           - dev
-           - qa
-           - staging
-           - prod
+      Terraform_Environment:
+        description: "Choose your environment"
+        required: true
+        type: choice
+        options: 
+          - dev
+          - qa
+          - staging
+          - prod
+
 permissions:
   id-token: write
   contents: read
 
-
 jobs:
-    # -----------------------------
-    # AWS IAM cred using IAM ROLE
-    # ----------------------------
+
+  # -----------------------------
+  # AWS IAM cred using IAM ROLE
+  # ----------------------------
   run_OIDC_job_with_aws:
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@main # Or a specific version
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-region: 'us-east-1'
+          aws-region: us-east-1
+
       - name: test aws identity
         run: aws sts get-caller-identity
 
+  # -------------------------------------------------------------------
+  # Terraform VPC job
+  # -------------------------------------------------------------------
   job1-terraform-VPC:
-    name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc,Subnets,NAT etc"
+    name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc, Subnets, NAT etc"
     needs: run_OIDC_job_with_aws
     runs-on: ubuntu-latest
-  #  environment: AWS-devlopment
-    
     env:
-        AWS_REGION: 'us-east-1'  
+      AWS_REGION: us-east-1
 
-
-      # ------------------------------
-      # Setup Terraform
-      # ------------------------------
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: us-east-1
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-      
-      # ------------------------------
-      # Checkout source code
-      # ------------------------------
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # ------------------------------
-      # Terraform Init
-      # ------------------------------
       - name: Terraform Init
         run: |
           cd 01-vpc
           terraform init \
-          -backend-config="key=vpc/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
-          -reconfigure
+            -backend-config="key=vpc/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
+            -reconfigure
 
-          
-
-      # ------------------------------
-      # Terraform Plan
-      # ------------------------------
       - name: Terraform Plan
         run: |
           cd 01-vpc
-      
           terraform plan -var="environment=${{ github.event.inputs.Terraform_Environment }}"
-          
-      # ---------------------------------------------------
-      # Terraform Apply (only when TERRAFORMACTION = deploy)
-      # ---------------------------------------------------
+
       - name: Terraform Apply
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deploy' }}
         run: |
-          
           cd 01-vpc
           terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
-      
 
-  #**********************************************  
-  # Terraform Security groups
-  # **********************************************
-  
+
+  # -------------------------------------------------------------------
+  # Terraform Security Groups job
+  # -------------------------------------------------------------------
   job2-terrafom-securitygroups:
-   name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing security groups, creating incoming rules etc"
-   runs-on: ubuntu-latest
-   needs: job1-terraform-VPC
-   
-   env:
-        AWS_REGION: 'us-east-1'
-   
-   steps:
-      
-      # ------------------------------
-      # Checkout source code
-      # ------------------------------
+    name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing security groups and rules"
+    runs-on: ubuntu-latest
+    needs: job1-terraform-VPC
+    env:
+      AWS_REGION: us-east-1
 
+    steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-    
-      # ------------------------------
-      # Setup Terraform
-      # ------------------------------
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: us-east-1
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # ------------------------------
-      # Terraform Init
-      # ------------------------------
       - name: Terraform Init
         run: |
           cd 02-securitygroups
           terraform init \
-          -backend-config="key=sg/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
-          -reconfigure
-         
+            -backend-config="key=sg/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
+            -reconfigure
 
-      # ------------------------------
-      # Terraform Plan
-      # ------------------------------
       - name: Terraform Plan
         run: |
           cd 02-securitygroups
-          terraform plan  -var="environment=${{ github.event.inputs.Terraform_Environment }}"
-          
-      # ---------------------------------------------------
-      # Terraform Apply (only when TERRAFORMACTION = deploy)
-      # ---------------------------------------------------
+          terraform plan -var="environment=${{ github.event.inputs.Terraform_Environment }}"
+
       - name: Terraform Apply
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deploy' }}
         run: |
-           cd 02-securitygroups
-           terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
-
+          cd 02-securitygroups
+          terraform apply -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
