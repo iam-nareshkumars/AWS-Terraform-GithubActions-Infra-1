@@ -1,5 +1,5 @@
 module "eternalplace_vpc" {
-    source = "git::https://github.com/Mygit-Naresh/terraform-aws-vpc.git"
+    source = "git::https://github.com/iam-nareshkumars/terraform-modules.git"
     cidr_block = var.cidr_block
     public_subnet = var.public_subnet
     private_subnet = var.private_subnet
