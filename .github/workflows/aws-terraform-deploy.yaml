@@ -40,6 +40,7 @@ jobs:
 
   job1-terraform-VPC:
     name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc,Subnets,NAT etc"
+    needs: run_OIDC_job_with_aws
     runs-on: ubuntu-latest
   #  environment: AWS-devlopment
     
