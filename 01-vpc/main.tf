@@ -8,4 +8,5 @@ module "eternalplace_vpc" {
     project = var.project
     is_vpc_peer_required = "true"
     accepter_peer_id = ""
+    
 }

@@ -16,3 +16,6 @@ variable "db_subnet" {
 variable  "project" {
     default = "eternalplace"
 } 
+variable "availability_zones" {
+    default = ["us-east-1a","us-east-1b"]
+}
