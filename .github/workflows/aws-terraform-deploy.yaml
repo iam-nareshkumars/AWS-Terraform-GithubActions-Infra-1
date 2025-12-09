@@ -26,16 +26,16 @@ jobs:
     # -----------------------------
     # AWS IAM cred using IAM ROLE
     # ----------------------------
-  run_OIDC_job_with_aws:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@main # Or a specific version
-        with:
-          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-region: 'us-east-1'
-      - name: test aws identity
-        run: aws sts get-caller-identity
+  # run_OIDC_job_with_aws:
+  #   runs-on: ubuntu-latest
+    # steps:
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@main # Or a specific version
+      #   with:
+      #     role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+      #     aws-region: 'us-east-1'
+      # - name: test aws identity
+      #   run: aws sts get-caller-identity
 
   job1-terraform-VPC:
     name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc,Subnets,NAT etc"
@@ -46,7 +46,13 @@ jobs:
         AWS_REGION: 'us-east-1'  
 
     steps:
-     
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@main # Or a specific version
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: 'us-east-1'
+      - name: test aws identity
+        run: aws sts get-caller-identity
       # ------------------------------
       # Setup Terraform
       # ------------------------------
