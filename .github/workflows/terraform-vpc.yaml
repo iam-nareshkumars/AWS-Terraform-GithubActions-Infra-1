@@ -56,9 +56,9 @@ jobs:
       # Terraform Init
       # ------------------------------
       - name: Terraform Init
-        run: 
+        run: |
           cd 01-vpc
-          terraform init    -reconfigure
+          terraform init  -reconfigure
       #     terraform init -reconfigure
           
 
