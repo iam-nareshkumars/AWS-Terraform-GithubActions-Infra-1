@@ -1,4 +1,4 @@
-name: Deploy Terraform AWS VPC-SecurityGroups Pipeline
+name: OIDC pipeline to Deploy Terraform AWS VPC-SecurityGroups
 
 on:
   workflow_dispatch:
@@ -18,35 +18,35 @@ on:
            - qa
            - staging
            - prod
-           
+permissions:
+  id-token: write
 
 
 jobs:
+    # -----------------------------
+    # AWS IAM cred using IAM ROLE
+    # ----------------------------
+  run_OIDC_job_with_aws:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@main # Or a specific version
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: 'us-east-1'
+      - name: test aws identity
+        run: aws sts get-caller-identoty
+
   job1-terraform-VPC:
     name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc,Subnets,NAT etc"
     runs-on: ubuntu-latest
   #  environment: AWS-devlopment
     
     env:
-        AWS_REGION: 'ap-south-1'  
+        AWS_REGION: 'us-east-1'  
 
     steps:
-      # ------------------------------
-      # Checkout source code
-      # ------------------------------
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # -------------------------
-      # AWS IAM cred
-      # -------------------------
-
-      - name: 'Configure AWS credentials'
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: ${{ env.AWS_REGION }}
-
+     
       # ------------------------------
       # Setup Terraform
       # ------------------------------
@@ -98,22 +98,7 @@ jobs:
         AWS_REGION: 'us-east-1'
    
    steps:
-      # ------------------------------
-      # Checkout source code
-      # ------------------------------
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # -------------------------
-      # AWS IAM cred
-      # -------------------------
-
-      - name: 'Configure AWS credentials'
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: ${{ env.AWS_REGION }}
-     
+    
       # ------------------------------
       # Setup Terraform
       # ------------------------------
