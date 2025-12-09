@@ -35,7 +35,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
           aws-region: 'us-east-1'
       - name: test aws identity
-        run: aws sts get-caller-identoty
+        run: aws sts get-caller-identity
 
   job1-terraform-VPC:
     name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc,Subnets,NAT etc"
