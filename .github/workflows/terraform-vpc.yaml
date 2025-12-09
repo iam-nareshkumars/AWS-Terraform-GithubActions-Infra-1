@@ -58,7 +58,7 @@ jobs:
       - name: Terraform Init
         run: 
           cd 01-vpc
-          terraform init  -var=${{ github.event.inputs.Terraform_Environment }}  -reconfigure
+          terraform init  -var="environment=${{ github.event.inputs.Terraform_Environment }}"  -reconfigure
       #     terraform init -reconfigure
           
 
@@ -69,7 +69,7 @@ jobs:
         run: |
           cd 01-vpc
       
-          terraform plan -refresh-only -var="environment=${{ github.event.inputs.Terraform_Environment }}"
+          terraform plan  -var="environment=${{ github.event.inputs.Terraform_Environment }}"
           
       # ---------------------------------------------------
       # Terraform Apply (only when TERRAFORMACTION = deploy)
