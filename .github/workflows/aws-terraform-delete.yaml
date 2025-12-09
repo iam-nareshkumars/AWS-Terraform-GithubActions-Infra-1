@@ -4,132 +4,109 @@ on:
   workflow_dispatch:
     inputs:
       TERRAFORM_ACTION:
-        description: "terraform infra delete ?"
+        description: "Terraform infra delete?"
         required: true
         type: choice
         options:
           - destroy
+
       Terraform_Environment:
-         description: "Choose your environment"
-         required: true
-         type: choice
-         options: 
-           - dev
-           - qa
-           - staging
-           - prod
-           
+        description: "Choose your environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - qa
+          - staging
+          - prod
+
+permissions:
+  id-token: write
+  contents: read
 
 
 jobs:
 
-            
-  #**********************************************  
-  # Terraform Security groups
   # **********************************************
-  
-  job1-terrafom-securitygroups:
-   name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing security groups, creating incoming rules etc"
-   runs-on: ubuntu-latest
-   env:
-        AWS_REGION: 'us-east-1'
-   
-   steps:
-      # ------------------------------
-      # Checkout source code
-      # ------------------------------
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # -------------------------
-      # AWS IAM cred
-      # -------------------------
+  # Job 1: Destroy Security Groups
+  # **********************************************
+  job1-terraform-securitygroups:
+    name: "Destroying Security Groups"
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-1
 
-      - name: 'Configure AWS credentials'
-        uses: aws-actions/configure-aws-credentials@v1
+    steps:
+      # Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # OIDC AWS Credentials
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: ${{ env.AWS_REGION }}
-     
-      # ------------------------------
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
       # Setup Terraform
-      # ------------------------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # ------------------------------
       # Terraform Init
-      # ------------------------------
       - name: Terraform Init
         run: |
           cd 02-securitygroups
           terraform init \
-          -backend-config="key=sg/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
-          -reconfigure
+            -backend-config="key=sg/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
+            -reconfigure
 
-      
-
-      # ---------------------------------------------------
-      # Terraform Destroy (only when TERRAFORMACTION = deletion)
-      # ---------------------------------------------------
-      - name: Terraform Destroy
+      # Destroy SGs
+      - name: Terraform Destroy (SG)
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'destroy' }}
         run: |
-          echo "Manual approval required before destroy."
+          echo "Destroying security groups..."
           cd 02-securitygroups
           terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
 
-  #**********************************************  
-  # Terraform VPC
-  # **********************************************
 
-  job2-terraform-VPC:
-    name: "${{ github.event.inputs.TERRAFORM_ACTION }}ing vpc,Subnets,NAT etc"
+  # **********************************************
+  # Job 2: Destroy VPC (depends on SG deletion)
+  # **********************************************
+  job2-terraform-vpc:
+    name: "Destroying VPC, Subnets, NAT etc"
     runs-on: ubuntu-latest
-  #  environment: AWS-devlopment
-    
+    needs: job1-terraform-securitygroups
     env:
-        AWS_REGION: 'ap-south-1'  
+      AWS_REGION: us-east-1  
 
     steps:
-      # ------------------------------
       # Checkout source code
-      # ------------------------------
       - name: Checkout code
-        uses: actions/checkout@v3
-      # -------------------------
-      # AWS IAM cred
-      # -------------------------
+        uses: actions/checkout@v4
 
-      - name: 'Configure AWS credentials'
-        uses: aws-actions/configure-aws-credentials@v1
+      # OIDC AWS Credentials
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      # ------------------------------
       # Setup Terraform
-      # ------------------------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # ------------------------------
       # Terraform Init
-      # ------------------------------
       - name: Terraform Init
         run: |
           cd 01-vpc
           terraform init \
-          -backend-config="key=vpc/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
-          -reconfigure
-   
-          
-      # ---------------------------------------------------
-      # Terraform Destroy (only when TERRAFORMACTION = destroy)
-      # ---------------------------------------------------
-      - name: Terraform Destroy
+            -backend-config="key=vpc/${{ github.event.inputs.Terraform_Environment }}/terraform.tfstate" \
+            -reconfigure
+
+      # Destroy VPC
+      - name: Terraform Destroy (VPC)
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'destroy' }}
         run: |
-            cd 01-vpc
-            terraform destroy  -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
+          echo "Destroying VPC..."
+          cd 01-vpc
+          terraform destroy -var="environment=${{ github.event.inputs.Terraform_Environment }}" -auto-approve
