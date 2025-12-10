@@ -68,7 +68,7 @@ jobs:
       - name: Terraform Plan
         run: |
           cd 002-tools_install
-          terraform plan
+          terraform plan -target=module.${{ github.event.inputs.TOOL }}
 
       # -----------------------------------------
       # Terraform Apply or Destroy (param-based)
@@ -77,5 +77,5 @@ jobs:
         run: |
           cd 002-tools_install
           terraform ${{ github.event.inputs.ACTION }} \
-            -target=${{ github.event.inputs.TOOL }} \
+            -target=module.${{ github.event.inputs.TOOL }} \
             -auto-approve
