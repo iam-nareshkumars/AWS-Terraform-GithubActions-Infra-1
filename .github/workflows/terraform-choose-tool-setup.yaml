@@ -74,7 +74,7 @@ jobs:
       # Terraform Apply or Destroy (param-based)
       # -----------------------------------------
       - name: Terraform Apply/Destroy
-        run: 
+        run: |
           cd 002-tools_install
           terraform ${{ github.event.inputs.ACTION }} \
             -target=${{ github.event.inputs.TOOL }} \
