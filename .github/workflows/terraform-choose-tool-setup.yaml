@@ -36,6 +36,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # ------------------------------
+      # terraform setup
+      # ------------------------------
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
       # -------------------------
       # AWS IAM cred
       # -------------------------

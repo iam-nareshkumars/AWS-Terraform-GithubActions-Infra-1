@@ -1,6 +1,7 @@
 terraform {
   required_providers {
     aws = {
+      alias = ""
       source  = "hashicorp/aws"
       version = "~> 6.0"
  }
