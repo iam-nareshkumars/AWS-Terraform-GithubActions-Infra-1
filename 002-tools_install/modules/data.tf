@@ -11,5 +11,5 @@ data "aws_ami" "main" {
 }
 
 data "aws_route53_zone" "main" {
-  # name = var.domain
+    name = var.domain
 }
