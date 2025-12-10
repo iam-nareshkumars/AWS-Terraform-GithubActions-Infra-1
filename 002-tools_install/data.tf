@@ -1,4 +1,4 @@
-data "aws_ami" "main" {
+data "aws_ami" "tools" {
 
   most_recent = true
   owners      = ["703671922956"]
@@ -10,6 +10,6 @@ data "aws_ami" "main" {
 
 }
 
-data "aws_route53_zone" "main" {
+data "aws_route53_zone" "tools" {
   name = var.domain
 }
