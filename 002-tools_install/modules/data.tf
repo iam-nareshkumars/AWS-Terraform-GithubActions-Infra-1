@@ -3,10 +3,10 @@ data "aws_ami" "main" {
    most_recent = true
   # owners      = ["703671922956"]
 
-  #  filter {
-  #   name   = "name"
-  #   values = ["AMI_2"]
-  # }
+   filter {
+    name   = "name"
+    values = ["AMI_2"]
+  }
 
 }
 
