@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: false   # Same as Jenkins `disableConcurrentBuilds()`
 
 jobs:
-  terraform:
+  AWS-EC2-Configure:
     runs-on: ubuntu-latest
     env:
         AWS_REGION: 'us-east-1'
@@ -79,3 +79,23 @@ jobs:
           terraform ${{ github.event.inputs.ACTION }} \
             -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]" \
             -auto-approve
+  Tool-setup:
+   runs-on: ubuntu-latest
+   env:
+        AWS_REGION: 'us-east-1' 
+   steps:
+
+      # ------------------------------
+      # Checkout repository
+      # ------------------------------
+     - name: Checkout code
+       uses: actions/checkout@v4
+
+      # ------------------------------
+      # Running ansible playbook 
+      # ------------------------------
+    
+     - name: Run single bash command inline
+       run: bash setup.sh ${{ github.event.inputs.TOOL }}
+      
+      
