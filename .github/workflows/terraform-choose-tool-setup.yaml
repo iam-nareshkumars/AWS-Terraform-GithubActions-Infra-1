@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: false   # Same as Jenkins `disableConcurrentBuilds()`
 
 jobs:
-  AWS-EC2-Configure:
+  AWS-EC2-Create:
     runs-on: ubuntu-latest
     env:
         AWS_REGION: 'us-east-1'
@@ -79,8 +79,10 @@ jobs:
           terraform ${{ github.event.inputs.ACTION }} \
             -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]" \
             -auto-approve
-  Tool-setup:
+  Tool-configure:
+   name: Configuring ${{ github.event.inputs.TOOL }}
    runs-on: ubuntu-latest
+   needs: AWS-EC2-Create
    env:
         AWS_REGION: 'us-east-1' 
    steps:

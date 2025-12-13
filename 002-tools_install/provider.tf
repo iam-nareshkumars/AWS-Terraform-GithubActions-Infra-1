@@ -6,15 +6,12 @@ terraform {
  }
  
     }
-# # backend "s3" {
-# #    bucket = "aws-infra-terraform-statefile-bucket-001"
-# #    key    = "tools/qa/terraform.tfstate"
-# #    encrypt = true
-# #    region = "us-east-1"
+backend "s3" {
+   bucket = "aws-infra-terraform-statefile-bucket-001"
+   key    = "tools/qa/terraform.tfstate"
+   encrypt = true
+   region = "us-east-1"
    
-# # }
+}
  }
 
-provider "aws" {
-region = "us-east-1"
-}
