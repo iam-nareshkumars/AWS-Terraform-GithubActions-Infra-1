@@ -97,8 +97,6 @@ jobs:
       # Running ansible playbook 
       # ------------------------------
 
-     - name: Make script executable
-       run: chmod +x ./setup.sh
     
      - name: Run single bash command inline
        run: bash ./setup.sh "${{ github.event.inputs.TOOL }}"
