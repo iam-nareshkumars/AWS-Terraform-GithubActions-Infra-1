@@ -12,7 +12,7 @@ resource "aws_instance" "main" {
   ami                    = data.aws_ami.main.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
-  iam_instance_profile   = var.Name == "jenkins-tool" ? "arn:aws:iam::703671922956:instance-profile/Role_for_ec2" : aws_iam_instance_profile.roboshop.name
+  iam_instance_profile   = var.Name == "jenkins-tool" ? "arn:aws:iam::703671922956:instance-profile/Role_for_ec2" : aws_iam_instance_profile.robo.name
 
   tags = {
     Name = "${var.Name}-tool"

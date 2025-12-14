@@ -7,6 +7,7 @@ module "tools" {
   zone_id       = data.aws_route53_zone.tools.zone_id
   domain        = var.domain
   port_no       = each.value["port_no"]
+ 
 
 
 }
