@@ -21,11 +21,11 @@ variable "tools" {
       instance_type = "t3.small"
       port_no       = "9090"
     }
-    grafana = {
-      Name          = "grafana"
-      instance_type = "t3.micro"
-      port_no       = "3000"
-    }
+    # grafana = {
+    #   Name          = "grafana"
+    #   instance_type = "t3.micro"
+    #   port_no       = "3000"
+    # }
 
   }
 
