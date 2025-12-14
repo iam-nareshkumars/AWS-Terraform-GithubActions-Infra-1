@@ -1,9 +1,7 @@
 name: Terraform setup tools Pipeline
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
     inputs:
       ACTION:
         description: "Select terraform action"
