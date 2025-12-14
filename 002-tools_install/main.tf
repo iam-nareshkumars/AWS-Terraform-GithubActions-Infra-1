@@ -24,29 +24,29 @@ module "tools" {
 # }
 
 
-# resource "null_resource" "main" {
+resource "null_resource" "main" {
 
 
-#   triggers = {
-#     timestamp = timestamp()
-#   }
-#   depends_on = [aws_route53_record.main]
+  triggers = {
+    timestamp = timestamp()
+  }
+  depends_on = [aws_route53_record.main]
 
-#   connection {
-#     type     = "ssh"
-#     user     = var.user
-#     password = var.password
-#     host     = aws_instance.main.private_ip
-#   }
+  connection {
+    type     = "ssh"
+    user     = var.user
+    password = var.password
+    host     = aws_instance.main.private_ip
+  }
 
-#   provisioner "remote-exec" {
+  provisioner "remote-exec" {
 
-#     inline = [
-#       "sleep 10",
-#       "pwd",
-#       "echo Running playbook"
-#       #"ansible-playbook -i vault.eternallearnings.shop  -e toolname=vault /home/ec2-user/tools_setup/tools.yml"
-#     ]
-#   }
+    inline = [
+      "sleep 10",
+      "pwd",
+      "echo Running playbook"
+      #"ansible-playbook -i vault.eternallearnings.shop  -e toolname=vault /home/ec2-user/tools_setup/tools.yml"
+    ]
+  }
 
-# }
+}
