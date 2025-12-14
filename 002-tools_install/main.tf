@@ -36,7 +36,7 @@ resource "null_resource" "main" {
     type     = "ssh"
     user     = var.user
     password = var.password
-    host     = "${each.value["Name"].var.domain}"
+    host     = "vault.eternallearnings.shop"
   }
 
   provisioner "remote-exec" {
