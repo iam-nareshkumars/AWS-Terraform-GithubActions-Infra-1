@@ -30,13 +30,13 @@ resource "null_resource" "main" {
   triggers = {
     timestamp = timestamp()
   }
-  depends_on = [aws_route53_record.main]
+  
 
   connection {
     type     = "ssh"
     user     = var.user
     password = var.password
-    host     = aws_instance.main.private_ip
+    host     = "${each.value["Name"].var.domain}"
   }
 
   provisioner "remote-exec" {
