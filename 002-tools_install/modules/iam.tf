@@ -45,11 +45,11 @@ resource "aws_iam_role_policy" "main" {
   })
 }
 
-resource "aws_iam_instance_profile" "robo" {
-  name = "${var.Name}-iam_instance_profile"
-  role = aws_iam_role.main.id
+# resource "aws_iam_instance_profile" "robo" {
+#   name = "${var.Name}-iam_instance_profile"
+#   role = aws_iam_role.main.id
 
-  tags = {
-    tag-key = "${var.Name}-instance-profile"
-  }
-}
+#   tags = {
+#     tag-key = "${var.Name}-instance-profile"
+#   }
+# }
