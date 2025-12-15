@@ -99,7 +99,7 @@ jobs:
       # ------------------------------
 
     
-     - name: Run single bash command inline
-       run: bash 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
+    #  - name: Run single bash command inline
+    #    run: bash 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
       
       
