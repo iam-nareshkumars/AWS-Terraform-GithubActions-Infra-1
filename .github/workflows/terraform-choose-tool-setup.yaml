@@ -21,6 +21,9 @@ on:
 concurrency:
   group: terraform-pipeline
   cancel-in-progress: false   # Same as Jenkins `disableConcurrentBuilds()`
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   AWS-EC2-Create:
