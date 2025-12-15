@@ -23,29 +23,29 @@ module "tools" {
 # }
 
 
-# resource "null_resource" "main" {
+resource "null_resource" "main" {
 
 
-#   triggers = {
-#     timestamp = timestamp()
-#   }
+  triggers = {
+    timestamp = timestamp()
+  }
   
 
-#   connection {
-#     type     = "ssh"
-#     user     = var.user
-#     password = var.password
-#     host     = "vault.eternallearnings.shop"
-#   }
+  connection {
+    type     = "ssh"
+    user     = var.user
+    password = var.password
+    host     = "vault.eternallearnings.shop"
+  }
 
-#   provisioner "remote-exec" {
+  provisioner "remote-exec" {
 
-#     inline = [
-#       "sleep 10",
-#       "pwd",
-#       "echo Running playbook"
-#       #"ansible-playbook -i vault.eternallearnings.shop  -e toolname=vault /home/ec2-user/tools_setup/tools.yml"
-#     ]
-#   }
+    inline = [
+      "sleep 10",
+      "pwd",
+      "echo Running playbook",
+      "ansible-playbook -i vault.eternallearnings.shop -e toolname=vault 002-tools_install/main.yml"
+    ]
+  }
 
-# }
+}
