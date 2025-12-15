@@ -79,27 +79,27 @@ jobs:
           cd 002-tools_install
           terraform ${{ github.event.inputs.ACTION }} \
             -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]" \
-            -auto-approve
-  Tool-configure:
-   name: Configuring ${{ github.event.inputs.TOOL }}
-   runs-on: ubuntu-latest
-   needs: AWS-EC2-Create
-   env:
-        AWS_REGION: 'us-east-1' 
-   steps:
+             -auto-approve
+  # Tool-configure:
+  #  name: Configuring ${{ github.event.inputs.TOOL }}
+  #  runs-on: ubuntu-latest
+  #  needs: AWS-EC2-Create
+  #  env:
+  #       AWS_REGION: 'us-east-1' 
+  #  steps:
 
-      # ------------------------------
-      # Checkout repository
-      # ------------------------------
-     - name: Checkout code
-       uses: actions/checkout@v4
+  #     # ------------------------------
+  #     # Checkout repository
+  #     # ------------------------------
+  #    - name: Checkout code
+  #      uses: actions/checkout@v4
 
-      # ------------------------------
-      # Running ansible playbook 
-      # ------------------------------
+  #     # ------------------------------
+  #     # Running ansible playbook 
+  #     # ------------------------------
 
     
-    #  - name: Run single bash command inline
-    #    run: bash 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
+  #    - name: Run single bash command inline
+  #      run: bash 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
       
       
