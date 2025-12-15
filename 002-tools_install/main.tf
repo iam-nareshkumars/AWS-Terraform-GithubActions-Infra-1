@@ -7,9 +7,8 @@ module "tools" {
   zone_id       = data.aws_route53_zone.tools.zone_id
   domain        = var.domain
   port_no       = each.value["port_no"]
+  instance_profile = aws_iam_instance_profile.ssm_profile.name
  
-
-
 }
 
 # resource "aws_instance" "my_ec2" {
@@ -24,29 +23,29 @@ module "tools" {
 # }
 
 
-resource "null_resource" "main" {
+# resource "null_resource" "main" {
 
 
-  triggers = {
-    timestamp = timestamp()
-  }
+#   triggers = {
+#     timestamp = timestamp()
+#   }
   
 
-  connection {
-    type     = "ssh"
-    user     = var.user
-    password = var.password
-    host     = "vault.eternallearnings.shop"
-  }
+#   connection {
+#     type     = "ssh"
+#     user     = var.user
+#     password = var.password
+#     host     = "vault.eternallearnings.shop"
+#   }
 
-  provisioner "remote-exec" {
+#   provisioner "remote-exec" {
 
-    inline = [
-      "sleep 10",
-      "pwd",
-      "echo Running playbook"
-      #"ansible-playbook -i vault.eternallearnings.shop  -e toolname=vault /home/ec2-user/tools_setup/tools.yml"
-    ]
-  }
+#     inline = [
+#       "sleep 10",
+#       "pwd",
+#       "echo Running playbook"
+#       #"ansible-playbook -i vault.eternallearnings.shop  -e toolname=vault /home/ec2-user/tools_setup/tools.yml"
+#     ]
+#   }
 
-}
+# }
