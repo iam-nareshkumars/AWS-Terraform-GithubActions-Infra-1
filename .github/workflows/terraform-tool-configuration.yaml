@@ -40,11 +40,20 @@ jobs:
           pip install boto3 botocore
           ansible-galaxy collection install amazon.aws
 
+      - name: Install Ansible and AWS deps correctly
+        run: |
+           pipx install ansible-core
+           pipx inject ansible-core boto3 botocore
+           ansible-galaxy collection install amazon.aws
+    
+
       - name: Debug inventory
         run: |
-         
-        
+         ansible --version
          ansible-inventory -i 002-tools_install/ansible/inventory/aws_ec2.yml --graph --vars
+
+
+
 
       # Run Ansible via SSM
       - name: Run Ansible Playbook ${{ github.event.inputs.TOOL }}
