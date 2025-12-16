@@ -1,5 +1,5 @@
 - name: expense play Install {{ toolname }}
-  hosts: "{{ toolname }}"
+  hosts: all
   vars_files:
   -  variables.yml
   become: yes
