@@ -1,5 +1,16 @@
 name: Terraform + Ansible Pipeline
 
+on:
+  workflow_dispatch:
+    inputs:
+      TOOL:
+        description: "Select terraform target tool to install"
+        required: true
+        type: choice
+        options:
+          - vault
+          - tomcat
+
 permissions:
   id-token: write
   contents: read
@@ -18,17 +29,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: us-east-1
 
-      # Terraform
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Apply
-        run: |
-          cd terraform
-          terraform init
-          terraform apply -auto-approve
 
       # Install Ansible
       - name: Install Ansible
@@ -41,7 +43,4 @@ jobs:
       # Run Ansible via SSM
       - name: Run Ansible Playbook (Vault)
         run: |
-          ansible-playbook \
-            -i inventories/aws_ssm.yml \
-            -e toolname=vault \
-            002-tools_install/main.yml
+           bash cd 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
