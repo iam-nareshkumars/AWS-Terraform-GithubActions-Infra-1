@@ -1,17 +1,17 @@
-# - name: Install "{{ toolname }}" 
-#   hosts: "tag_Tool_{{ toolname }}" 
-#   become: true
-#   connection: aws_ssm
+- name: Install "{{ toolname }}" 
+  hosts: "tag_Tool_{{ toolname }}" 
+  become: true
+  connection: aws_ssm
 
-#   roles:
-#     - "{{ toolname }}"
+  roles:
+    - vault
 
                     
-- name: DEBUG all variables (vault)
-  hosts: tag_Tool_vault
-  connection: aws_ssm
-  gather_facts: false
-  tasks:
-    - debug:
-        var: vars
+# - name: DEBUG all variables (vault)
+#   hosts: tag_Tool_vault
+#   connection: aws_ssm
+#   gather_facts: false
+#   tasks:
+#     - debug:
+#         var: vars
 
