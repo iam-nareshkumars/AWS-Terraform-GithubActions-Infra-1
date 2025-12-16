@@ -41,6 +41,6 @@ jobs:
           ansible-galaxy collection install amazon.aws
 
       # Run Ansible via SSM
-      - name: Run Ansible Playbook (Vault)
+      - name: Run Ansible Playbook ${{ github.event.inputs.TOOL }}
         run: |
            bash 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
