@@ -1,5 +1,5 @@
 - name: expense play Install {{ toolname }}
-  hosts: "{{ toolname }}"
+  hosts: "vault.eternaltrainings.shop"
   vars_files:
   -  variables.yml
   become: yes
