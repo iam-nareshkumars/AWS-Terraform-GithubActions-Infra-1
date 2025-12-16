@@ -1,5 +1,5 @@
-- name: installing hashicorp {{ toolname }}
-  ansible.builtin.shell: set-hostname {{ toolname }}
+- name: installing hashicorp "{{ toolname }}"
+  ansible.builtin.shell: set-hostname "{{ toolname }}"
 
 - name: install yum utils
   ansible.builtin.shell:  yum install -y yum-utils
