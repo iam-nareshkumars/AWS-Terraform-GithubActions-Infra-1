@@ -1,0 +1,9 @@
+- name: Install "{{ toolname }}" 
+  hosts: tag_Tool_"{{ toolname }}" 
+  become: true
+  connection: aws_ssm
+
+  roles:
+    - "{{ toolname }}"  
+
+                    
