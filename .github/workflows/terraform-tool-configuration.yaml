@@ -43,4 +43,4 @@ jobs:
       # Run Ansible via SSM
       - name: Run Ansible Playbook (Vault)
         run: |
-           bash cd 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
+           bash 002-tools_install/setup.sh ${{ github.event.inputs.TOOL }}
