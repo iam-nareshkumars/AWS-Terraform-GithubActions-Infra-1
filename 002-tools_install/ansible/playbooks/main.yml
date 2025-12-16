@@ -13,6 +13,9 @@
   become: true
   connection: aws_ssm
 
+  vars:
+    toolname: "{{ toolname | default('vault') }}"
+
   roles:
     - vault
 
