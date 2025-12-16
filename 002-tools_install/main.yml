@@ -1,5 +1,5 @@
 - name: expense play Install {{ toolname }}
-  hosts: all
+  hosts: localhost
   become: yes
   roles:
     - "{{ toolname }}"                            
