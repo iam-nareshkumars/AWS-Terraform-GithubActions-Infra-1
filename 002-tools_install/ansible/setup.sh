@@ -3,6 +3,4 @@ set -e
 
 TOOL=$1
 
-cd ansible
-
-ansible-playbook playbooks/main.yml
+ansible-playbook 002-tools_install/playbooks/main.yml
