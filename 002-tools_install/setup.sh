@@ -1,1 +1,1 @@
-ansible-pull -U https://github.com/iam-nareshkumars/AWS-Terraform-GithubActions-Infra-1.git/002-tools_install  -e  ansible_user=ec2-user -e ansible_password=DevOps321   -e toolname=$1 002-tools_install/main.yml
+ansible-pull -U https://github.com/iam-nareshkumars/AWS-Terraform-GithubActions-Infra-1.git  -e  ansible_user=ec2-user -e ansible_password=DevOps321   -e toolname=$1 002-tools_install/main.yml
