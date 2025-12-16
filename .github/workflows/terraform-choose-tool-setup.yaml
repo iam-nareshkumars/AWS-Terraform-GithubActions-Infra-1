@@ -60,6 +60,7 @@ jobs:
       # ------------------------------
       - name: Terraform Init
         run: |
+          rm -rf .terraform
           cd 002-tools_install
           terraform init -reconfigure
 

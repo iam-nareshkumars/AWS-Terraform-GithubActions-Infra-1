@@ -17,6 +17,7 @@ resource "aws_instance" "main" {
 
   tags = {
     Name = "${var.Name}-tool"
+    Tool = var.Name
   }
 }
 

@@ -6,5 +6,10 @@ regions:
 filters:
   tag:Tool: vault
 
+keyed_groups:
+  - key: tags.Tool
+    prefix: tag_Tool
+
 compose:
-  ansible_host: vault.eternallearnings.shop
+  ansible_host: instance_id
+
