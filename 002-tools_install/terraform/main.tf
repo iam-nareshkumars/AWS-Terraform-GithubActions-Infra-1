@@ -1,6 +1,6 @@
 module "tools" {
   for_each      =  var.tools
-  source        =  "./modules"
+  source        =  "002-tools_install/modules"
   ami           = data.aws_ami.tools.id
   instance_type = each.value["instance_type"]
   Name          = each.value["Name"]
