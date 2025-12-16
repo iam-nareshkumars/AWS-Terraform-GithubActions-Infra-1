@@ -4,6 +4,6 @@
   connection: aws_ssm
 
   roles:
-    - "{{ toolname }}"  
+    - ansible/roles/"{{ toolname }}"
 
                     
