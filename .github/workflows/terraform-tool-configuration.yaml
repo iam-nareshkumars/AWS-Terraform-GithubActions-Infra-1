@@ -40,6 +40,11 @@ jobs:
           pip install boto3 botocore
           ansible-galaxy collection install amazon.aws
 
+      - name: Debug inventory
+        run: |
+         cd ansible
+         ansible-inventory --graph
+
       # Run Ansible via SSM
       - name: Run Ansible Playbook ${{ github.event.inputs.TOOL }}
         run: |
