@@ -4,7 +4,7 @@
   connection: aws_ssm
 
   roles:
-    - vault
+    - "{{ toolname }}" 
 
                     
 # - name: DEBUG all variables (vault)

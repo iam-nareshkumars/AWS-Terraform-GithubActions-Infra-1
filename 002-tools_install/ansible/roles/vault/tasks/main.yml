@@ -1,20 +1,56 @@
-- name: installing hashicorp "{{ toolname }}"
-  ansible.builtin.shell: set-hostname "{{ toolname }}"
+# - name: installing hashicorp "{{ toolname }}"
+#   ansible.builtin.shell: set-hostname "{{ toolname }}"
 
-- name: install yum utils
-  ansible.builtin.shell:  yum install -y yum-utils
+# - name: install yum utils
+#   ansible.builtin.shell:  yum install -y yum-utils
 
-- name: adding repo
-  shell: yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+# - name: adding repo
+#   shell: yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 
-- name: install yum
-  ansible.builtin.yum: 
+# - name: install yum
+#   ansible.builtin.yum: 
+#     name: "{{ toolname }}"
+#     state: present
+
+# - name: Start service vault
+#   ansible.builtin.service:
+#     name: "{{ toolname }}"
+#     enabled: yes
+#     state: started
+  
+- name: Validate toolname is set
+  assert:
+    that:
+      - toolname is defined
+      - toolname | length > 0
+    fail_msg: "toolname variable is missing or empty"
+
+- name: Set hostname
+  ansible.builtin.command: hostnamectl set-hostname {{ toolname }}
+  become: true
+
+- name: Install yum utils
+  ansible.builtin.yum:
+    name: yum-utils
+    state: present
+  become: true
+
+- name: Add HashiCorp repo
+  ansible.builtin.command:
+    cmd: yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+  args:
+    creates: /etc/yum.repos.d/hashicorp.repo
+  become: true
+
+- name: Install Vault
+  ansible.builtin.yum:
     name: "{{ toolname }}"
     state: present
+  become: true
 
-- name: Start service vault
+- name: Start Vault service
   ansible.builtin.service:
     name: "{{ toolname }}"
-    enabled: yes
+    enabled: true
     state: started
-  
+  become: true
