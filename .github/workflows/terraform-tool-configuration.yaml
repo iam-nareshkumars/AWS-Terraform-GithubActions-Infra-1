@@ -44,7 +44,7 @@ jobs:
         run: |
          
         
-         ansible-inventory -i 002-tools_install/ansible/inventory/aws_ec2.yml --list --yaml
+         ansible-inventory -i 002-tools_install/ansible/inventory/aws_ec2.yml --graph --vars
 
       # Run Ansible via SSM
       - name: Run Ansible Playbook ${{ github.event.inputs.TOOL }}
