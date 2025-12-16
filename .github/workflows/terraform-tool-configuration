@@ -1,0 +1,47 @@
+name: Terraform + Ansible Pipeline
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # AWS OIDC
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Apply
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
+
+      # Install Ansible
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+          pip install boto3 botocore
+          ansible-galaxy collection install amazon.aws
+
+      # Run Ansible via SSM
+      - name: Run Ansible Playbook (Vault)
+        run: |
+          ansible-playbook \
+            -i inventories/aws_ssm.yml \
+            -e toolname=vault \
+            002-tools_install/main.yml
