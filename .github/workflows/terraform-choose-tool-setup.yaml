@@ -61,7 +61,7 @@ jobs:
       - name: Terraform Init
         run: |
           rm -rf .terraform
-          cd 002-tools_install
+          cd 002-tools_install/terraform
           terraform init -reconfigure
 
       # ------------------------------
@@ -69,7 +69,7 @@ jobs:
       # ------------------------------
       - name: Terraform Plan
         run: |
-          cd 002-tools_install
+          cd 002-tools_install/terraform
           terraform plan -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]"
 
       # -----------------------------------------
@@ -77,7 +77,7 @@ jobs:
       # -----------------------------------------
       - name: Terraform Apply/Destroy
         run: |
-          cd 002-tools_install
+          cd 002-tools_install/terraform
           terraform ${{ github.event.inputs.ACTION }} \
             -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]" \
              -auto-approve
