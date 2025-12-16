@@ -18,13 +18,13 @@
 
 
 
-- name: Install vault
-  hosts: tag_Tool_vault
-  become: true
-  connection: aws_ssm
+# - name: Install vault
+#   hosts: tag_Tool_vault
+#   become: true
+#   connection: aws_ssm
 
-  roles:
-    - "{{ toolname }}"
+#   roles:
+#     - "{{ toolname }}"
 
                     
 # - name: DEBUG all variables (vault)
