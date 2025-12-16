@@ -43,7 +43,7 @@ jobs:
       - name: Debug inventory
         run: |
          
-         002-tools_install/ansible-inventory --graph
+         002-tools_install/ansible/ansible-inventory --graph
 
       # Run Ansible via SSM
       - name: Run Ansible Playbook ${{ github.event.inputs.TOOL }}
