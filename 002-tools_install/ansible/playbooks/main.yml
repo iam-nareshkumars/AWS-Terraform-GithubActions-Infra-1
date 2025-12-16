@@ -1,5 +1,5 @@
 - name: Install "{{ toolname }}" 
-  hosts: tag_Tool_all
+  hosts: tag_Tool_vault
   become: true
   connection: aws_ssm
 
