@@ -3,4 +3,4 @@ set -e
 
 TOOL=$1
 
-ansible-playbook -e toolname=$1 002-tools_install/ansible/playbooks/main.yml
+ansible-playbook -e toolname=$1 002-tools_install/ansible/main.yml
