@@ -1,5 +1,8 @@
 - name: expense play Install {{ toolname }}
   hosts: localhost
+  connection: local
+  vars_files:
+  -  variables.yml
   become: yes
   roles:
     - "{{ toolname }}"                            
