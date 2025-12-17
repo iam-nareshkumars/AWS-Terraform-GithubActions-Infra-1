@@ -22,9 +22,17 @@ echo "ANSIBLE_DIR  = $ANSIBLE_DIR"
 echo "INVENTORY   = $INVENTORY"
 echo "PLAYBOOK    = $PLAYBOOK"
 
+# ansible-playbook \
+#   -i "inv.ini" \
+#  -e ansible_username=ec2-user \
+#  -e ansible_password=DevOps321 \
+#   "$PLAYBOOK" \
+#   -e "toolname=$TOOL"
+
 ansible-playbook \
-  -i "inv.ini" \
+  -i 002-tools_install/ansible/inventory/aws_ec2.yml \
  -e ansible_username=ec2-user \
  -e ansible_password=DevOps321 \
-  "$PLAYBOOK" \
-  -e "toolname=$TOOL"
+  002-tools_install/ansible/playbooks/main.yml \
+  -e "toolname=$TOOL" \
+  -l tag_Tool_vault
