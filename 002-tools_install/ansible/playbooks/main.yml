@@ -11,10 +11,9 @@
 - name: Install tool
   hosts: vault
   become: true
-  connection: aws_ssm
 
-  vars:
-    toolname: "{{ toolname | default('vault') }}"
+
+
 
   roles:
     - vault
