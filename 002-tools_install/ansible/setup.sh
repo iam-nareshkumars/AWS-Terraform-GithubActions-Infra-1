@@ -24,7 +24,6 @@ echo "PLAYBOOK    = $PLAYBOOK"
 
 ansible-playbook \
   -i "inv.ini" \
-  -e ansible_username=ec2-user \
-  -e ansible_password=DevOps321 \
+
   "$PLAYBOOK" \
   -e "toolname=$TOOL"
