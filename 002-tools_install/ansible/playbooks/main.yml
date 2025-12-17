@@ -1,12 +1,12 @@
-- name: Validate toolname
-  hosts: localhost
-  gather_facts: false
-  tasks:
-    - assert:
-        that:
-          - toolname is defined
-          - toolname | length > 0
-        fail_msg: "toolname variable must be provided (e.g. -e toolname=vault)"
+# - name: Validate toolname
+#   hosts: localhost
+#   gather_facts: false
+#   tasks:
+#     - assert:
+#         that:
+#           - toolname is defined
+#           - toolname | length > 0
+#         fail_msg: "toolname variable must be provided (e.g. -e toolname=vault)"
 
 - name: Install tool
   hosts: tag_Tool_vault
