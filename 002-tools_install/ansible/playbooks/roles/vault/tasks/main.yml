@@ -26,8 +26,8 @@
     fail_msg: "toolname variable is missing or empty"
 
 - name: Set hostname
-  ansible.builtin.hostname:
-    name: "{{ toolname }}"
+  ansible.builtin.command:
+    cmd: hostnamectl set-hostname {{ toolname }}
 
 - name: Install yum utils
   ansible.builtin.yum:
