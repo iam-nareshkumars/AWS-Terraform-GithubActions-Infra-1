@@ -8,8 +8,8 @@
 #           - toolname | length > 0
 #         fail_msg: "toolname variable must be provided (e.g. -e toolname=vault)"
 
-- name: Install tool vault
-  hosts: tag_Tool_vault
+- name: Install tool "{{ toolname }}"
+  hosts: "tag_Tool_{{ toolname }}"
   connection: aws_ssm
   gather_facts: false
   become: true
@@ -19,7 +19,7 @@
 
 
   roles:
-    - vault
+    - "{{ toolname }}"
 
 
 
