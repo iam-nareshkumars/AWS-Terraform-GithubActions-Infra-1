@@ -13,3 +13,7 @@ keyed_groups:
 compose:
   ansible_host: private_ip_address
 
+vars:
+  ansible_connection: aws_ssm
+  ansible_python_interpreter: /usr/bin/python3
+
