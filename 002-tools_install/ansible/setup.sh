@@ -23,6 +23,6 @@ echo "INVENTORY   = $INVENTORY"
 echo "PLAYBOOK    = $PLAYBOOK"
 
 ansible-playbook \
-  -i "$INVENTORY" \
+  -i "inv.ini" \
   "$PLAYBOOK" \
   -e "toolname=$TOOL"
