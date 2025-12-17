@@ -26,14 +26,16 @@
     fail_msg: "toolname variable is missing or empty"
 
 - name: Set hostname
-  ansible.builtin.command:
-    cmd: hostnamectl set-hostname {{ toolname }}
+  become: false
+  ansible.builtin.raw: |
+    hostnamectl set-hostname {{ toolname }}
+
 
 - name: Install yum utils
   ansible.builtin.yum:
     name: yum-utils
     state: present
-  become: true
+  
 
 - name: Add HashiCorp repo
   ansible.builtin.command:

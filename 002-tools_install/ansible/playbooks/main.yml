@@ -12,8 +12,7 @@
   hosts: "tag_Tool_{{ toolname }}"
   connection: aws_ssm
   gather_facts: false
-  become: true
-
+  become: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
