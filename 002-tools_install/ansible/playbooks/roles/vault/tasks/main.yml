@@ -28,7 +28,7 @@
 - name: Set hostname
   become: false
   ansible.builtin.raw: |
-    hostnamectl set-hostname {{ toolname }}
+    hostnamectl set-hostname "{{ toolname }}"
 
 
 - name: Install yum utils
