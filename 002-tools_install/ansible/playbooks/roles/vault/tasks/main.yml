@@ -67,14 +67,14 @@
       - toolname | trim | length > 0
     fail_msg: "toolname variable is missing or empty"
 
-- name: Set hostname
-  ansible.builtin.hostname:
-    name: "{{ toolname }}"
+# - name: Set hostname
+#   ansible.builtin.hostname:
+#     name: "{{ toolname }}"
 
-- name: Install required system utilities
-  ansible.builtin.dnf:
-    name: dnf-utils
-    state: present
+# - name: Install required system utilities
+#   ansible.builtin.dnf:
+#     name: dnf-utils
+#     state: present
 
 - name: Add HashiCorp repository
   ansible.builtin.get_url:
