@@ -4,11 +4,7 @@
   become: true
   gather_facts: false
 
-  pre_tasks:
-    - name: Gather minimal facts
-      setup:
-        gather_subset:
-          - min
+
 
   roles:
     - nginx
