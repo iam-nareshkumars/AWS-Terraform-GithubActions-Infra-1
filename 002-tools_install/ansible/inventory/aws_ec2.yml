@@ -12,6 +12,7 @@ keyed_groups:
 
 compose:
   ansible_host: instance_id
+  ansible_connection: str('aws_ssm')
 
 vars:
   ansible_connection: aws_ssm

@@ -1,0 +1,22 @@
+---
+- name: Verify SSM Connection and Python Environment
+  hosts: web
+  gather_facts: yes  # This is usually where the NoneType error triggers
+  tasks:
+    - name: Check who I am on the target
+      command: whoami
+      register: user_info
+
+    - name: Display Connection Info
+      debug:
+        msg: 
+          - "Connected to: {{ inventory_hostname }}"
+          - "Running as: {{ user_info.stdout }}"
+          - "Python Path: {{ ansible_python_interpreter }}"
+          - "OS Family: {{ ansible_os_family }}"
+
+    - name: Simple Directory Listing
+      list_dir:
+        path: /tmp
+      register: dir_out
+      ignore_errors: yes
