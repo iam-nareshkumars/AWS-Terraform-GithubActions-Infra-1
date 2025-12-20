@@ -14,7 +14,8 @@
   gather_facts: false
  # become: false
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_shell_executable: /bin/sh
+    ansible_remote_tmp: /tmp/.ansible
 
 
   roles:
