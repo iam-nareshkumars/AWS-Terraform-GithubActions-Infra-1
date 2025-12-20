@@ -11,7 +11,7 @@ keyed_groups:
     prefix: tag_Tool
 
 compose:
-  ansible_host: private_ip_address
+  ansible_host: instance_id
 
 vars:
   ansible_connection: aws_ssm
