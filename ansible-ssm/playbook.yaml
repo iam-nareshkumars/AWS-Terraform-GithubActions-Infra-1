@@ -4,7 +4,7 @@
   become: true
   gather_facts: false
 
-  tasks:
+  pre_tasks:
     - name: Gather minimal facts
       setup:
         gather_subset:
