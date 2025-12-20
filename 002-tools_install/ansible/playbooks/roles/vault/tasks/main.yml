@@ -78,7 +78,7 @@
 
 
 - name: Set hostname
-  ansible.builtin.raw: hostnamectl set-hostname {{ toolname }}
+  ansible.builtin.raw: sudo hostnamectl set-hostname {{ toolname }}
 
 - name: Install yum utils
   ansible.builtin.raw: dnf install -y yum-utils
