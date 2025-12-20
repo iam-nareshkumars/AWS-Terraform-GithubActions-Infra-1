@@ -2,7 +2,13 @@
 - name: Configure web servers via AWS SSM
   hosts: web
   become: true
-  gather_facts: true
+  gather_facts: false
+
+  tasks:
+    - name: Gather minimal facts
+      setup:
+        gather_subset:
+          - min
 
   roles:
     - nginx
