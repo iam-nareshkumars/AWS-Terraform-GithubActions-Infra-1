@@ -1,0 +1,8 @@
+---
+- name: Configure web servers via AWS SSM
+  hosts: web
+  become: true
+  gather_facts: true
+
+  roles:
+    - nginx
