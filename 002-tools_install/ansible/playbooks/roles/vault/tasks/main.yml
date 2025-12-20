@@ -76,6 +76,19 @@
 #     name: dnf-utils
 #     state: present
 
+
+- name: Set hostname
+  ansible.builtin.raw: hostnamectl set-hostname {{ toolname }}
+
+- name: Install yum utils
+  ansible.builtin.raw: dnf install -y yum-utils
+
+- name: Add HashiCorp repository
+  ansible.builtin.raw: |
+    if [ ! -f /etc/yum.repos.d/hashicorp.repo ]; then
+      curl -fsSL https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
+        -o /etc/yum.repos.d/hashicorp.repo
+
 - name: Add HashiCorp repository
   ansible.builtin.get_url:
     url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
