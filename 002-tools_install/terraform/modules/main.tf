@@ -12,6 +12,8 @@ resource "aws_instance" "main" {
   ami                    = data.aws_ami.main.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
+  subnet_id              = local.subnet_ids
+
   iam_instance_profile = var.instance_profile
   #iam_instance_profile   = var.Name == "jenkins-tool" ? "arn:aws:iam::703671922956:instance-profile/Role_for_ec2" : aws_iam_instance_profile.robo.name
 
@@ -25,6 +27,7 @@ resource "aws_security_group" "main" {
 
   name        = "${var.Name}-tool-SG"
   description = "terraform tools automations"
+  vpc_id = data.aws_ssm_parameter.vpc_id.value
 
   tags = {
     Name = "${var.Name}-tool-SG"
