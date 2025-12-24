@@ -1,64 +1,4 @@
-# - name: installing hashicorp "{{ toolname }}"
-#   ansible.builtin.shell: set-hostname "{{ toolname }}"
-
-# - name: install yum utils
-#   ansible.builtin.shell:  yum install -y yum-utils
-
-# - name: adding repo
-#   shell: yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-
-# - name: install yum
-#   ansible.builtin.yum: 
-#     name: "{{ toolname }}"
-#     state: present
-
-# - name: Start service vault
-#   ansible.builtin.service:
-#     name: "{{ toolname }}"
-#     enabled: yes
-#     state: started
-  
-# - name: Validate toolname is set
-#   assert:
-#     that:
-#       - toolname is defined
-#       - toolname | length > 0
-#     fail_msg: "toolname variable is missing or empty"
-
-# - name: Set hostname
-#   become: false
-#   ansible.builtin.raw: |
-#     hostnamectl set-hostname "{{ toolname }}"
-
-
-# - name: Install yum utils
-#   ansible.builtin.yum:
-#     name: yum-utils
-#     state: present
-  
-
-# - name: Add HashiCorp repo
-#   ansible.builtin.command:
-#     cmd: yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-#   args:
-#     creates: /etc/yum.repos.d/hashicorp.repo
-#   become: true
-
-# - name: Install Vault
-#   ansible.builtin.yum:
-#     name: "{{ toolname }}"
-#     state: present
-#   become: true
-
-# - name: Start Vault service
-#   ansible.builtin.service:
-#     name: "{{ toolname }}"
-#     enabled: true
-#     state: started
-#   become: true
-
-#### Latest code from chatGpt
-
+---
 - name: Validate toolname is set
   ansible.builtin.assert:
     that:
@@ -84,11 +24,6 @@
   ansible.builtin.raw:  dnf install -y yum-utils
   
 
-# - name: Add HashiCorp repository
-#   ansible.builtin.raw: |
-#     if [ ! -f /etc/yum.repos.d/hashicorp.repo ]; then
-#       curl -fsSL https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
-#         -o /etc/yum.repos.d/hashicorp.repo
 
 - name: Add HashiCorp repository
   ansible.builtin.get_url:
