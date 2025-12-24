@@ -52,12 +52,12 @@ jobs:
          ansible --version
          ansible-inventory -i 002-tools_install/ansible/inventory/aws_ec2.yml --graph --vars
 
-      - name: Run Ansible (debug)
-        run: |
-          bash 002-tools_install/ansible/setup.sh vault -vvv
+      # - name: Run Ansible (debug)
+      #   run: |
+      #     bash 002-tools_install/ansible/setup.sh vault -vvv
 
 
       # Run Ansible via SSM
       - name: Run Ansible Playbook ${{ github.event.inputs.TOOL }}
         run: |
-           bash 002-tools_install/ansible/setup.sh
+           bash 002-tools_install/ansible/setup.sh ${{ github.event.inputs.TOOL }}
