@@ -49,9 +49,9 @@ echo "PLAYBOOK    = $PLAYBOOK"
 
 #######Run this using CI/CD
   ansible-playbook \
-  -i  inventory/aws_ec2.yml \
+  -i  $INVENTORY \
    -e "ansible_aws_ssm_bucket_name=my-ansible-transfer-bucket-1312" \
    -e "ansible_aws_ssm_region=us-east-1" \
   -e "toolname=$TOOL" \
-     ansible/playbooks/main.yml \
+     $PLAYBOOK
   -vvv
