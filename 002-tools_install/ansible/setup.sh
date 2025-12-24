@@ -37,10 +37,21 @@ echo "PLAYBOOK    = $PLAYBOOK"
 #   "$PLAYBOOK" \
 #   -e "toolname=$TOOL"
 
-ansible-playbook \
-  -i /home/ec2-user/AWS-Terraform-GithubActions-Infra-1/002-tools_install/ansible/inventory/aws_ec2.yml \
+#######Running this from workstation
+
+# ansible-playbook \
+#   -i /home/ec2-user/AWS-Terraform-GithubActions-Infra-1/002-tools_install/ansible/inventory/aws_ec2.yml \
+#    -e "ansible_aws_ssm_bucket_name=my-ansible-transfer-bucket-1312" \
+#    -e "ansible_aws_ssm_region=us-east-1" \
+#   -e "toolname=$TOOL" \
+#   /home/ec2-user/AWS-Terraform-GithubActions-Infra-1/002-tools_install/ansible/playbooks/main.yml \
+#   -vvv
+
+#######Run this using CI/CD
+  ansible-playbook \
+  -i  inventory/aws_ec2.yml \
    -e "ansible_aws_ssm_bucket_name=my-ansible-transfer-bucket-1312" \
    -e "ansible_aws_ssm_region=us-east-1" \
   -e "toolname=$TOOL" \
-  /home/ec2-user/AWS-Terraform-GithubActions-Infra-1/002-tools_install/ansible/playbooks/main.yml \
+     ansible/playbooks/main.yml \
   -vvv
