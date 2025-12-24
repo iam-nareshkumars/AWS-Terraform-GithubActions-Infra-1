@@ -7,9 +7,7 @@ variable "port_no" {}
 variable "user" {
   default = "ec2-user"
 }
-variable "password" {
-  default = "DevOps321"
-}
+
 variable "iam_action" {
   default = []
 }

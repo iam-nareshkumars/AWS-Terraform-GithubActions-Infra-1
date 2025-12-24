@@ -5,7 +5,7 @@ data "aws_ami" "main" {
 
    filter {
     name   = "name"
-    values = ["AMI_2"]
+    values = ["aws-ssm-v7"]
   }
 
 }
