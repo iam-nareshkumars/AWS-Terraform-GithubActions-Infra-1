@@ -81,7 +81,8 @@
   ansible.builtin.raw: sudo hostnamectl set-hostname vault
 
 - name: Install yum utils
-  ansible.builtin.raw: dnf install -y yum-utils
+  ansible.builtin.raw: sudo dnf install -y yum-utils
+  
 
 - name: Add HashiCorp repository
   ansible.builtin.raw: |
