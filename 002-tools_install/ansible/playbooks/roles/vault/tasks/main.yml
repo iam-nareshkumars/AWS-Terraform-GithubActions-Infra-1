@@ -77,8 +77,8 @@
 #     state: present
 
 
-- name: Set hostname "{{ toolname }}"
-  ansible.builtin.raw: sudo hostnamectl set-hostname {{ toolname }}
+- name: Set hostname {{ toolname }}
+  ansible.builtin.raw: sudo hostnamectl set-hostname vault
 
 - name: Install yum utils
   ansible.builtin.raw: dnf install -y yum-utils
