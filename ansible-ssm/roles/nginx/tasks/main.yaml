@@ -7,7 +7,7 @@
 
 
 - name: Set hostname
-  ansible.builtin.raw: sudo hostnamectl set-hostname {{ toolname }}
+  ansible.builtin.raw: sudo hostnamectl set-hostname nginxtest
 
 - name: Update all packages
   yum:
