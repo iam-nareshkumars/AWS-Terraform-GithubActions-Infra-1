@@ -54,4 +54,4 @@ echo "PLAYBOOK    = $PLAYBOOK"
    -e "ansible_aws_ssm_region=us-east-1" \
   -e "toolname=$TOOL" \
      $PLAYBOOK
-  -vvv
+ 
