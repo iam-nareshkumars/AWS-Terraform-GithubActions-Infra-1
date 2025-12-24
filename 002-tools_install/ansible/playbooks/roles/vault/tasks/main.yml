@@ -78,17 +78,17 @@
 
 
 - name: Set hostname {{ toolname }}
-  ansible.builtin.raw: sudo hostnamectl set-hostname vault
+  ansible.builtin.raw: hostnamectl set-hostname vault
 
 - name: Install yum utils
-  ansible.builtin.raw: sudo dnf install -y yum-utils
+  ansible.builtin.raw:  dnf install -y yum-utils
   
 
-- name: Add HashiCorp repository
-  ansible.builtin.raw: |
-    if [ ! -f /etc/yum.repos.d/hashicorp.repo ]; then
-      curl -fsSL https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
-        -o /etc/yum.repos.d/hashicorp.repo
+# - name: Add HashiCorp repository
+#   ansible.builtin.raw: |
+#     if [ ! -f /etc/yum.repos.d/hashicorp.repo ]; then
+#       curl -fsSL https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
+#         -o /etc/yum.repos.d/hashicorp.repo
 
 - name: Add HashiCorp repository
   ansible.builtin.get_url:
