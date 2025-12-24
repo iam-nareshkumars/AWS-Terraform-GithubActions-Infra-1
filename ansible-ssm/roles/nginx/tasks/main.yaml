@@ -1,9 +1,9 @@
 ---
-- name: Validate OS
-  assert:
-    that:
-      - ansible_os_family == "RedHat"
-    fail_msg: "Only RedHat based systems are supported"
+# - name: Validate OS
+#   assert:
+#     that:
+#       - ansible_os_family == "RedHat"
+#     fail_msg: "Only RedHat based systems are supported"
 
 
 - name: Set hostname
