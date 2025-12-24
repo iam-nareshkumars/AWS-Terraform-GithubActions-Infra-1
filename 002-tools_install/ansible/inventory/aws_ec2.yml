@@ -14,7 +14,7 @@ compose:
   ansible_host: instance_id
   ansible_connection: str('aws_ssm')
 
-vars:
-  ansible_connection: aws_ssm
-  ansible_python_interpreter: :/usr/local/bin/python3
+# vars:
+#   ansible_connection: aws_ssm
+#   ansible_python_interpreter: :/usr/local/bin/python3
 

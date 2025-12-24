@@ -5,17 +5,17 @@ set -e
 
 # ansible-playbook -i "002-tools_install/ansible/inventory/aws_ec2.yml"  -e toolname=vault /home/ec2-user/AWS-Terraform-GithubActions-Infra-1/002-tools_install/ansible/playbooks/main.yml
 
-echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
-source ~/.bashrc
+# echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
+# source ~/.bashrc
 
-sudo yum install python3.11-devel  python3.11-pip -y
-sudo pip3.11 install ansible botocore boto3
+# sudo yum install python3.11-devel  python3.11-pip -y
+# sudo pip3.11 install ansible botocore boto3
 
-# 1. Download the RPM for RHEL/Amazon Linux (64-bit)
-curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
+# # 1. Download the RPM for RHEL/Amazon Linux (64-bit)
+# curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
 
-# 2. Install it using sudo
-sudo yum install -y session-manager-plugin.rpm
+# # 2. Install it using sudo
+# sudo yum install -y session-manager-plugin.rpm
 
 
 TOOL=$1

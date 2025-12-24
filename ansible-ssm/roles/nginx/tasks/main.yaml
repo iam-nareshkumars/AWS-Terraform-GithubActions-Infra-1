@@ -5,6 +5,10 @@
       - ansible_os_family == "RedHat"
     fail_msg: "Only RedHat based systems are supported"
 
+
+- name: Set hostname
+  ansible.builtin.raw: sudo hostnamectl set-hostname {{ toolname }}
+
 - name: Update all packages
   yum:
     name: "*"
