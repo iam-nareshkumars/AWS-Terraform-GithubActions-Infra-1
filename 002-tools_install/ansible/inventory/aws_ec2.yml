@@ -5,7 +5,7 @@ regions:
 
 # Only fetch instances with this specific tag
 filters:
-  tag:Tool: vault
+  tag:Tool: "{{ toolname }}"
   instance-state-name: running
 
 # Use the instance-id as the primary identifier in Ansible

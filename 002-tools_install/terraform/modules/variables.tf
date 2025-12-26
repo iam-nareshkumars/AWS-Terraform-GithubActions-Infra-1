@@ -3,6 +3,8 @@ variable "instance_type" {}
 variable "Name" {}
 variable "zone_id" {}
 variable "domain" {}
+variable "environment" {}
+variable "project" {}
 variable "port_no" {}
 variable "user" {
   default = "ec2-user"

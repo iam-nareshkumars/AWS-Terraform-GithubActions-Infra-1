@@ -27,7 +27,7 @@ resource "aws_instance" "main" {
 
 resource "aws_security_group" "main" {
 
-  name        = "${var.Name}-tool-SG"
+  name        = "${var.Name}-${var.environment}-SG"
   description = "terraform tools automations"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
 
