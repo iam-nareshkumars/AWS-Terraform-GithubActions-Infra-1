@@ -52,6 +52,6 @@ echo "PLAYBOOK    = $PLAYBOOK"
   -i  $INVENTORY \
    -e "ansible_aws_ssm_bucket_name=my-ansible-transfer-bucket-1312" \
    -e "ansible_aws_ssm_region=us-east-1" \
-  -e "toolname=$TOOL" \
+  -e "toolname=$TOOL" --limit tag_Tool_$TOOL \
      $PLAYBOOK
  
