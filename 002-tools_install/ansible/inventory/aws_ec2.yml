@@ -17,6 +17,10 @@ hostnames:
 keyed_groups:
   - key: tags.Tool
     prefix: tag_Tool
+  
+  # Creates groups like: tag_Env_dev, tag_Env_prod
+  - key: tags.Environment
+    prefix: tag_Env
 
 compose:
   # This ensures the connection uses the ID even if the display name is different
