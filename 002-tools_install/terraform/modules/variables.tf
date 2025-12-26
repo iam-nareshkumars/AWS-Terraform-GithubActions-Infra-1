@@ -6,9 +6,7 @@ variable "domain" {}
 variable "environment" {}
 variable "project" {}
 variable "port_no" {}
-variable "user" {
-  default = "ec2-user"
-}
+
 
 variable "iam_action" {
   default = []
