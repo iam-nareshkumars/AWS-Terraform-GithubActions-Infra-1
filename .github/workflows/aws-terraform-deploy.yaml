@@ -1,4 +1,4 @@
-name: OIDC pipeline to Deploy Terraform AWS VPC-SecurityGroups
+name: Infra Creation pipeline - Terraform AWS VPC-SecurityGroups
 
 on:
   workflow_dispatch:

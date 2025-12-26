@@ -1,5 +1,4 @@
-name: Delete Terraform AWS VPC-SecurityGroups Pipeline
-
+name: Infra Deletion pipeline - Terraform AWS VPC-SecurityGroups
 on:
   workflow_dispatch:
     inputs:
