@@ -2,12 +2,12 @@ variable "domain" {
   default = "eternallearnings.shop"
 }
 
-variable "user" {
-  default = "ec2-user"
+variable project {
+  default = "eternalplace"
 }
-
-variable "password" {
-  default = "DevOps321"
+  
+variable "environment" {
+  
 }
 variable "tools" {
   default = {

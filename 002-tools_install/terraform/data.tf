@@ -1,11 +1,11 @@
-data "aws_ami" "tools" {
+data "aws_ami" "main" {
 
   most_recent = true
   owners      = ["703671922956"]
 
   filter {
     name   = "name"
-    values = ["AMI_2"]
+    values = ["aws-ssm-v7"]
   }
 
 }
