@@ -19,7 +19,7 @@ keyed_groups:
     prefix: tag_Tool
   
   # Creates groups like: tag_Env_dev, tag_Env_prod
-  - key: tags.Environment
+  - key: tags.environment
     prefix: tag_Env
 
 compose:

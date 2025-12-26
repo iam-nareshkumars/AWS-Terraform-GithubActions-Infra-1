@@ -19,6 +19,7 @@ set -e
 
 
 TOOL=$1
+ENV=$2
 
 # Always resolve ansible base directory correctly
 ANSIBLE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -29,6 +30,8 @@ PLAYBOOK="$ANSIBLE_DIR/playbooks/main.yml"
 echo "ANSIBLE_DIR  = $ANSIBLE_DIR"
 echo "INVENTORY   = $INVENTORY"
 echo "PLAYBOOK    = $PLAYBOOK"
+
+TARGET_LIMIT="tag_Tool_${TOOL}:&tag_Env_${ENV}"
 
 # ansible-playbook \
 #   -i "inv.ini" \
@@ -52,6 +55,6 @@ echo "PLAYBOOK    = $PLAYBOOK"
   -i  $INVENTORY \
    -e "ansible_aws_ssm_bucket_name=my-ansible-transfer-bucket-1312" \
    -e "ansible_aws_ssm_region=us-east-1" \
-  -e "toolname=$TOOL" --limit tag_Tool_$TOOL \
+  -e "toolname=$TOOL" -e "env=$ENV" --limit $TARGET_LIMIT \
      $PLAYBOOK
  
