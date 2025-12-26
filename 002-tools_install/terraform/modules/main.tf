@@ -19,7 +19,9 @@ resource "aws_instance" "main" {
   iam_instance_profile = var.instance_profile
   #iam_instance_profile   = var.Name == "jenkins-tool" ? "arn:aws:iam::703671922956:instance-profile/Role_for_ec2" : aws_iam_instance_profile.robo.name
 
-  tags = merge(local.tags, {})
+  tags = merge(local.tags, {
+    Name = "${var.Name}-Server"
+  })
 }
 
 resource "aws_security_group" "main" {
@@ -28,9 +30,9 @@ resource "aws_security_group" "main" {
   description = "terraform tools automations"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
 
-  tags = {
-    Name = "${var.Name}-tool-SG"
-  }
+  tags = merge(local.tags,  {
+    Name = "${var.Name}-SG"
+  })
 
   ingress {
     description = "SSH from VPC"

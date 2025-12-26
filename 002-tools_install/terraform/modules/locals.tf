@@ -7,7 +7,7 @@ locals {
 
 locals {
     tags = {
-    Name = "${var.Name}-server-${var.environment}"
+    Name = "${var.Name}-${var.environment}"
     Tool = var.Name
     environment = var.environment
     CreatedBy   = "terraform"
