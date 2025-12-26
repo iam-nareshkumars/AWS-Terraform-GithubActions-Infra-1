@@ -13,3 +13,9 @@ data "aws_ami" "main" {
 data "aws_route53_zone" "tools" {
   name = var.domain
 }
+
+resource "aws_iam_instance_profile" "ssm_profile" {
+  name = "ec2-ssm-profile"
+  path = "/"
+  role = "ec2-ssm-role"
+}
