@@ -1,4 +1,4 @@
-name: Terraform setup tools Pipeline
+name: Continous Deployment - ec2-tool-terraform
 
 on:
   workflow_dispatch:
@@ -88,9 +88,9 @@ jobs:
         run: |
           cd 002-tools_install/terraform
           terraform ${{ github.event.inputs.ACTION }} \
-            -var="environment=${{ github.event.inputs.ENV }}"
-            -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]" \
-             -auto-approve
+          -var="environment=${{ github.event.inputs.ENV }}" \
+          -target="module.tools[\"${{ github.event.inputs.TOOL }}\"]" \
+           -auto-approve
   # Tool-configure:
   #  name: Configuring ${{ github.event.inputs.TOOL }}
   #  runs-on: ubuntu-latest

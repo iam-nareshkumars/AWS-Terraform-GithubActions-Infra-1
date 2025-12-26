@@ -1,4 +1,4 @@
-name: Terraform + Ansible Pipeline
+name: Continous Integration - ec2-tool-Terraform + Ansible
 
 on:
   workflow_dispatch:
