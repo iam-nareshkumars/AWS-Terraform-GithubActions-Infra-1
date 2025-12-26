@@ -7,7 +7,7 @@ module "tools" {
   zone_id       = data.aws_route53_zone.tools.zone_id
   domain        = var.domain
   port_no       = each.value["port_no"]
-  instance_profile = aws_iam_instance_profile.ssm_profile.name
+  instance_profile = data.aws_iam_instance_profile.ssm_profile.name
   environment = var.environment
   project = var.project
 
