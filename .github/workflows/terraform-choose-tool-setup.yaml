@@ -10,6 +10,15 @@ on:
         options:
           - apply
           - destroy
+      ENV:
+        description: "Select environment"
+        required: true
+        type: choice
+        options:
+           - dev
+           - qa
+           - prod
+           - staging
       TOOL:
         description: "Select terraform target tool to install"
         required: true
@@ -62,7 +71,7 @@ jobs:
         run: |
           rm -rf .terraform
           cd 002-tools_install/terraform
-          terraform init -reconfigure
+          terraform init -backend-config="key=tools/${{ github.event.inputs.ENV }}/terraform.tfstate"   -reconfigure
 
       # ------------------------------
       # Terraform Plan
