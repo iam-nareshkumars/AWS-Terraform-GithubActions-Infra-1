@@ -6,11 +6,14 @@ module "securitygroup" {
   vpc_id = data.aws_vpc.default.id
   sg_name =  each.value.sg_name
   sg_description =  each.value.sg_description
-  ###Ingress
+  #ingress
   from_port = each.value.from_port
-  to_port =  each.value.to_port
-  protocal = each.value.protocal
-  security_groups = each.value.security_groups
+  to_port = each.value.to_port
+  protocol = each.value.protocol
+  ingress_rules = each.value.ingress_rules
+  cidr_blocks = each.value.cidr_blocks
+  
+
 }
 
 
