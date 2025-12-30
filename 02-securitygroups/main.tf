@@ -3,12 +3,21 @@ module "securitygroup" {
   source = "git::https://github.com/Iam-naresh-devops/SG_module.git"
   environment = var.environment
   project = var.project
-  vpc_id = data.aws_ssm_parameter.vpc_id.value
+  vpc_id = data.aws_vpc.default.id
   sg_name =  each.value.sg_name
   sg_description =  each.value.sg_description
+  ###Ingress
+  from_port = each.value.from_port
+  to_port =  each.value.to_port
+  protocal = each.value.protocal
+  security_groups = each.value.security_groups
 }
 
-resource "aws_security_group_rule" "dynamic_rules" {
+
+
+
+
+/* resource "aws_security_group_rule" "dynamic_rules" {
   for_each = local.sg_rules
 
   type        = each.value.type
@@ -31,7 +40,7 @@ resource "aws_security_group_rule" "dynamic_rules" {
     null
   )
 }
-
+ */
 
 
 
