@@ -10,7 +10,7 @@ module "securitygroup" {
   from_port = each.value.from_port
   to_port = each.value.to_port
   protocol = each.value.protocol
-  #ingress_rules = each.value.ingress_rules
+  ingress_rules = each.value.ingress_rules
   cidr_blocks = each.value.ingress_rules.cidr_blocks
   
 
