@@ -12,7 +12,7 @@ module "securitygroup" {
   protocol = each.value.protocol
   ingress_rules = each.value.ingress_rules
   cidr_blocks = each.value.ingress_rules.cidr_blocks
-  
+  security_group_id = ["sg-02efeff1df99019a6"]
 
 }
 
