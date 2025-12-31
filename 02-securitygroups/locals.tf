@@ -1,5 +1,17 @@
 locals {
   sg_map = {
+    catalogue = {
+      
+      sg_name       = "catalogue"
+      sg_description = "security group created to attach catalogue instances"
+       from_port        = 80
+      to_port          = 80
+      protocol         =  "http"
+      source_security_group_id        = "catalogue"
+      
+    }
+
+
     web_alb = {
      
       sg_name       = "web-alb"
@@ -7,7 +19,7 @@ locals {
       from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id          = "catalogue"
     }
 
     app-lb = {
@@ -17,7 +29,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id         = "catalogue"
 
       
     }
@@ -29,7 +41,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id        = "catalogue"
       
     }
 
@@ -40,21 +52,12 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id         = "catalogue"
       
     }
 
     # add all your remaining SGs here...
-    catalogue = {
-      
-      sg_name       = "catalogue"
-      sg_description = "security group created to attach catalogue instances"
-       from_port        = 80
-      to_port          = 80
-      protocol         =  "http"
-      security_groups          = "catalogue"
-      
-    }
+
 
     redis = {
       
@@ -63,7 +66,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id         = "catalogue"
       
     }
 
@@ -74,7 +77,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id         = "catalogue"
       
     }
 
@@ -85,7 +88,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+     source_security_group_id         = "catalogue"
       
     }
 
@@ -96,7 +99,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id         = "catalogue"
       
     }
 
@@ -107,7 +110,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+     source_security_group_id         = "catalogue"
       
     }
 
@@ -118,7 +121,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+     source_security_group_id         = "catalogue"
       
     }
 
@@ -129,7 +132,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id        = "catalogue"
       
     }
 
@@ -140,7 +143,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id      = "catalogue"
    
     }
 
@@ -151,7 +154,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      security_groups          = "catalogue"
+      source_security_group_id        = "catalogue"
       
     }
   }
