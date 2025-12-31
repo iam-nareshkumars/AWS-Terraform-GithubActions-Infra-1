@@ -13,8 +13,7 @@ module "securitygroup" {
   to_port = each.value.to_port
   protocol = each.value.protocol
   security_group_id = each.value.sg_name
-  source_security_group_id = lookup(each.value, "source_security_group_id", null)
-
+  source_security_group_id = each.value.source_security_group_id
   
   }
 
