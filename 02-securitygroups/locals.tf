@@ -7,7 +7,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = "catalogue"
+      source_security_group_id        = module.securitygroup["catalogue"].sg_id
       
     }
 
@@ -19,7 +19,7 @@ locals {
       from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id          = "catalogue"
+      source_security_group_id          = module.securitygroup["catalogue"].sg_id
     }
 
     app-lb = {
@@ -29,7 +29,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = "catalogue"
+      source_security_group_id         = module.securitygroup["catalogue"].sg_id
 
       
     }
@@ -41,7 +41,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = "catalogue"
+      source_security_group_id        = module.securitygroup["catalogue"].sg_id
       
     }
 
@@ -52,7 +52,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = "catalogue"
+      source_security_group_id         = module.securitygroup["catalogue"].sg_id
       
     }
 
