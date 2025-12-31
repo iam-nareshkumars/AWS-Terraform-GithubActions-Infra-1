@@ -8,10 +8,8 @@ module "securitygroup" {
   sg_description =  each.value.sg_description
   #ingress
 
-  dynamic "ingress" {
-  for_each = local.sg_map
-  content {
-  from_port = ingress.each.value.from_port
+
+  from_port = each.value.
   to_port = ingress.each.value.to_port
   protocol = ingress.each.value.protocol
   #ingress_rules = each.value.ingress_rules
@@ -19,9 +17,8 @@ module "securitygroup" {
   security_group_id = ["sg-02efeff1df99019a6"]
   }
 
-}
 
-}
+
 
 
 

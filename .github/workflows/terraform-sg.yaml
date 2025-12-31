@@ -73,5 +73,5 @@ jobs:
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deletion' }}
         run: |
           echo "Manual approval required before destroy."
-          cd 02-sg-opt-variables
+          cd 02-securitygroups
           terraform destroy -auto-approve
