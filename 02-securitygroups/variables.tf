@@ -20,6 +20,10 @@ variable "sg_description" {
 }
 
 
+variable "source_security_group_id" {
+   default = "sg-02efeff1df99019a6"
+}
+
 
 
 # variable "tools" {
