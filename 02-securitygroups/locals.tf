@@ -7,8 +7,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = module.securitygroup["catalogue"].sg_id
-      
+      source_security_group_id        = ["sg-02efeff1df99019a6"]
     }
 
 
@@ -19,7 +18,7 @@ locals {
       from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id          = module.securitygroup["catalogue"].sg_id
+      source_security_group_id          = ["sg-02efeff1df99019a6"]
     }
 
     app-lb = {
@@ -29,7 +28,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = module.securitygroup["catalogue"].sg_id
+      source_security_group_id         = ["sg-02efeff1df99019a6"]
 
       
     }
@@ -41,7 +40,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = module.securitygroup["catalogue"].sg_id
+      source_security_group_id        = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -52,7 +51,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = module.securitygroup["catalogue"].sg_id
+      source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -66,7 +65,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = "catalogue"
+      source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -77,7 +76,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = "catalogue"
+      source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -88,7 +87,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-     source_security_group_id         = "catalogue"
+     source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -99,7 +98,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = "catalogue"
+      source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -110,7 +109,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-     source_security_group_id         = "catalogue"
+     source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -121,7 +120,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-     source_security_group_id         = "catalogue"
+     source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -132,7 +131,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = "catalogue"
+      source_security_group_id        = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -143,7 +142,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id      = "catalogue"
+      source_security_group_id      = ["sg-02efeff1df99019a6"]
    
     }
 
@@ -154,7 +153,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = "catalogue"
+      source_security_group_id        = ["sg-02efeff1df99019a6"]
       
     }
   }
