@@ -3,11 +3,11 @@ locals {
     catalogue = {
       
       sg_name       = "catalogue"
-      sg_description = "security group created to attach catalogue instances"
-       from_port        = 80
-      to_port          = 80
-      protocol         =  "http"
-      source_security_group_id        = ["sg-02efeff1df99019a6"]
+      sg_description = "incoming from VPN"
+       from_port        = 22
+      to_port          = 22
+      protocol         =  "tcp"
+      source_security_group_id        = "sg-02efeff1df99019a6"
     }
 
 
@@ -18,7 +18,7 @@ locals {
       from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id          = ["sg-02efeff1df99019a6"]
+      source_security_group_id          = "sg-02efeff1df99019a6"
     }
 
     app-lb = {
@@ -28,7 +28,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = ["sg-02efeff1df99019a6"]
+      source_security_group_id         =  "sg-02efeff1df99019a6"
 
       
     }
@@ -37,10 +37,10 @@ locals {
       
       sg_name       = "mongodb"
       sg_description = "security group created for mongodb instance"
-       from_port        = 80
-      to_port          = 80
+       from_port        = 27017
+      to_port          = 27017
       protocol         =  "http"
-     # source_security_group_id = var.source_security_group_id[0]
+     source_security_group_id = "sg-02efeff1df99019a6"
 
       
     }
@@ -51,8 +51,8 @@ locals {
       sg_description = "security group created to attach user instances"
        from_port        = 80
       to_port          = 80
-      protocol         =  "http"
-      #source_security_group_id         = ["sg-02efeff1df99019a6"]
+      protocol         =  "tcp"
+      source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -63,10 +63,10 @@ locals {
       
       sg_name       = "redis"
       sg_description = "security group created to attach redis instances"
-       from_port        = 80
-      to_port          = 80
-      protocol         =  "http"
-      #source_security_group_id         = ["sg-02efeff1df99019a6"]
+       from_port        = 6379
+      to_port          = 6379
+      protocol         =  "tcp"
+      source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -74,10 +74,10 @@ locals {
       
       sg_name       = "mysql"
       sg_description = "security group created to attach mysql instances"
-       from_port        = 80
-      to_port          = 80
-      protocol         =  "http"
-      source_security_group_id         = ["sg-02efeff1df99019a6"]
+       from_port        = 3306
+      to_port          = 3306
+      protocol         =  "tcp"
+      source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -85,10 +85,10 @@ locals {
       #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "rabbitmq"
       sg_description = "security group created to attach rabbitmq instances"
-       from_port        = 80
-      to_port          = 80
-      protocol         =  "http"
-     source_security_group_id         = ["sg-02efeff1df99019a6"]
+       from_port        = 5672
+      to_port          = 5672
+      protocol         =  "tcp"
+     source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -96,10 +96,10 @@ locals {
       #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "payment"
       sg_description = "security group created to attach payment instances"
-       from_port        = 80
-      to_port          = 80
-      protocol         =  "http"
-      source_security_group_id         = ["sg-02efeff1df99019a6"]
+       from_port        = 8080
+      to_port          = 8080
+      protocol         =  "tcp"
+      source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -110,7 +110,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-     source_security_group_id         = ["sg-02efeff1df99019a6"]
+     source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -121,7 +121,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-     source_security_group_id         = ["sg-02efeff1df99019a6"]
+     source_security_group_id         = "sg-02efeff1df99019a6"
       
     }
 
@@ -132,7 +132,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = ["sg-02efeff1df99019a6"]
+      source_security_group_id        = "sg-02efeff1df99019a6"
       
     }
 
@@ -143,7 +143,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id      = ["sg-02efeff1df99019a6"]
+      source_security_group_id      = "sg-02efeff1df99019a6"
    
     }
 
@@ -154,7 +154,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id        = ["sg-02efeff1df99019a6"]
+      source_security_group_id        = "sg-02efeff1df99019a6"
       
     }
   }

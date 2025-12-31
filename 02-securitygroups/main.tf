@@ -12,8 +12,7 @@ module "securitygroup" {
   from_port = each.value.from_port
   to_port = each.value.to_port
   protocol = each.value.protocol
-  security_group_id = each.value.sg_name
-  source_security_group_id = var.source_security_group_id
+  source_security_group_id = each.value.source_security_group_id
   
   }
 
