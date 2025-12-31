@@ -40,7 +40,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id = var.source_security_group_id[0]
+     # source_security_group_id = var.source_security_group_id[0]
 
       
     }
@@ -52,7 +52,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = ["sg-02efeff1df99019a6"]
+      #source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
@@ -66,7 +66,7 @@ locals {
        from_port        = 80
       to_port          = 80
       protocol         =  "http"
-      source_security_group_id         = ["sg-02efeff1df99019a6"]
+      #source_security_group_id         = ["sg-02efeff1df99019a6"]
       
     }
 
