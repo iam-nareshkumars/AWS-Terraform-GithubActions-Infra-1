@@ -63,8 +63,8 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.TERRAFORM_ACTION == 'creation' }}
         run: |
-           cd 02-securitygroups
-           terraform apply -auto-approve
+          cd 02-securitygroups
+          terraform apply -auto-approve
 
       # ---------------------------------------------------
       # Terraform Destroy (only when TERRAFORMACTION = deletion)
