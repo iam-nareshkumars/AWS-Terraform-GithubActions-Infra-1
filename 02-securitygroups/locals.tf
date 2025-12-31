@@ -82,7 +82,7 @@ locals {
     }
 
     rabbitmq = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+      #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "rabbitmq"
       sg_description = "security group created to attach rabbitmq instances"
        from_port        = 80
@@ -93,7 +93,7 @@ locals {
     }
 
     payment = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+      #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "payment"
       sg_description = "security group created to attach payment instances"
        from_port        = 80
@@ -104,7 +104,7 @@ locals {
     }
 
     cart = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+      #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "cart"
       sg_description = "security group created to attach cart instances"
        from_port        = 80
@@ -115,7 +115,7 @@ locals {
     }
 
     shipping = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+      #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "shipping"
       sg_description = "security group created to attach shipping instances"
        from_port        = 80
@@ -126,7 +126,7 @@ locals {
     }
 
     ratings = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+      #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "ratings"
       sg_description = "security group created to attach ratings instances"
        from_port        = 80
@@ -137,7 +137,7 @@ locals {
     }
 
     web = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+     # source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "web"
       sg_description = "security group created to attach web instances"
        from_port        = 80
@@ -148,7 +148,7 @@ locals {
     }
 
     vpn = {
-      source        = "git::https://github.com/Mygit-Naresh/modules.git"
+      #source        = "git::https://github.com/Mygit-Naresh/modules.git"
       sg_name       = "vpn"
       sg_description = "security group created to attach vpn instances"
        from_port        = 80
