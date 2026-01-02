@@ -1,6 +1,6 @@
 locals {
   sg_map = {
-    catalogue = {
+/*     catalogue = {
       
       sg_name       = "catalogue"
       sg_description = "Security group for catalogue"
@@ -22,7 +22,7 @@ locals {
 
 
   
-    }
+    } */
 
 
     
