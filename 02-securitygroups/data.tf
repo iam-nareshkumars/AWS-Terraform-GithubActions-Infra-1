@@ -61,6 +61,6 @@ data "aws_security_group"  "sg" {
   name = "vpn" # or use tags
   filter {
     name   = "tag:component"
-    values = ["catalogue"]
+    values = ["vpn"]
   }
 }
