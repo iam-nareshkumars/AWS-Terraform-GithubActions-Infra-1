@@ -9,14 +9,14 @@ locals {
          vpn = {
            from_port                = 22
            to_port                  = 22
-          source_security_group_id =  local.sg_ids["vpn"]
+          source_security_group_id =  data.aws_ssm_parameter.catalogue_in_vpn.value
           description              = "incoming from vpn" }
 
             app_lb = {
              from_port   = 8080
              to_port     = 8080
     
-             source_security_group_id = local.sg_ids["app-lb"]
+             source_security_group_id = data.aws_ssm_parameter.catalogue_in
              description = "incoming from app-lb"   }
 }
 
