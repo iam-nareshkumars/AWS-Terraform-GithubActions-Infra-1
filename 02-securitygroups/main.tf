@@ -29,11 +29,11 @@ resource "aws_security_group_rule" "dynamic_rules" {
   to_port     = each.value.to_port
   protocol    = each.value.protocol
 
-  security_group_id = module.securitygroup[each.value.target_sg].sg_id
+  security_group_id = module.base_securitygroup[each.value.target_sg].sg_id
 
   source_security_group_id = (
     each.value.source_sg != null ?
-    module.securitygroup[each.value.source_sg].sg_id :
+    module.base_securitygroup[each.value.source_sg].sg_id :
     null
   )
 
