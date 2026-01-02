@@ -13,7 +13,7 @@ module "base_securitygroup" {
 
 
 locals {
-  sg_ids = {
+  sg_ids_test = {
     for k, v in module.base_securitygroup :
     k => v.sg_id
   }
