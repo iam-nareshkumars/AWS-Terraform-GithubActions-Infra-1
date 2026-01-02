@@ -9,14 +9,14 @@ locals {
          vpn = {
            from_port                = 22
            to_port                  = 22
-          source_security_group_id =  "vpn" #module.securitygroup["vpn"].sg_id
+          source_security_group_id =  module.securitygroup["vpn"].sg_id
           description              = "incoming from vpn" }
 
             app_lb = {
              from_port   = 8080
              to_port     = 8080
     
-             source_security_group_id = "app-lb" #module.securitygroup["app-lb"].sg_id
+             source_security_group_id = module.securitygroup["app-lb"].sg_id
              description = "incoming from app-lb"   }
 }
 
