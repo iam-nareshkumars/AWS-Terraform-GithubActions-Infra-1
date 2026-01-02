@@ -1,4 +1,4 @@
-module "securitygroup" {
+module "base_securitygroup" {
   for_each = local.sg_map
   source = "git::https://github.com/Iam-naresh-devops/SG_module.git"
   environment = var.environment
@@ -7,11 +7,17 @@ module "securitygroup" {
   sg_name =  each.value.sg_name
   sg_description =  each.value.sg_description
   #ingress
-  ingress_rules = lookup(each.value, "ingress_rules", {})
+  ingress_rules = {}
   
   }
 
 
+locals {
+  sg_ids = {
+    for k, v in module.base_securitygroup :
+    k => v.sg_id
+  }
+}
 
 
 /* resource "aws_security_group_rule" "dynamic_rules" {
