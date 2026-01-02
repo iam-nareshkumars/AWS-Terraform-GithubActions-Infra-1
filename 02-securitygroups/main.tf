@@ -1,4 +1,4 @@
-module "securitygroup" {
+module "base_securitygroup" {
   for_each = local.sg_map
   source = "git::https://github.com/Iam-naresh-devops/SG_module.git"
   environment = var.environment
@@ -14,7 +14,7 @@ module "securitygroup" {
 
 locals {
   sg_ids_test = {
-    for k, v in module.securitygroup :
+    for k, v in module.base_securitygroup :
     k => v.sg_id
   }
 }
