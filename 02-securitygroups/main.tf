@@ -20,7 +20,7 @@ locals {
 }
 
 
-/* resource "aws_security_group_rule" "dynamic_rules" {
+resource "aws_security_group_rule" "dynamic_rules" {
   for_each = local.sg_rules
 
   type        = each.value.type
@@ -43,7 +43,7 @@ locals {
     null
   )
 }
- */
+
 
 
 
