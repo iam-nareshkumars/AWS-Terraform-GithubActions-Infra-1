@@ -59,10 +59,10 @@ data "aws_ssm_parameter" "private_subnet_ids" {
  */
 
 # Fetch the Security Group ID from SSM
-data "aws_ssm_parameter" "security_group_id" {
-  name = "/${var.project}/${var.environment}/vpn_sg_id" # The exact name used in SSM
-}
-output "ssm_retrieved_sg_id" {
-  value       = data.aws_ssm_parameter.security_group_id.value
-  description = "The SG ID fetched from SSM Parameter Store"
-}
+# data "aws_ssm_parameter" "security_group_id" {
+#   name = "/${var.project}/${var.environment}/vpn_sg_id" # The exact name used in SSM
+# }
+# output "ssm_retrieved_sg_id" {
+#   value       = data.aws_ssm_parameter.security_group_id.value
+#   description = "The SG ID fetched from SSM Parameter Store"
+# }
