@@ -24,7 +24,15 @@ locals {
   
     } */
 
-
+ catalogue = {
+     
+      sg_name       = "catalogue"
+      sg_description = "security group created for catalogue"
+      from_port        = 80
+      to_port          = 80
+      protocol         =  "http"
+      source_security_group_id          = "sg-02efeff1df99019a6"
+    }
     
 
 
