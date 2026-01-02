@@ -11,67 +11,57 @@ on:
           - creation
           - deletion
 
+env:
+  AWS_REGION: 'us-east-1'
+  WORKING_DIR: '02-securitygroups' # Defined common directory here
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
     environment: AWS-devlopment
-    env:
-        AWS_REGION: 'us-east-1'  
 
     steps:
-      # ------------------------------
-      # Checkout source code
-      # ------------------------------
       - name: Checkout code
         uses: actions/checkout@v3
-      # -------------------------
-      # AWS IAM cred
-      # -------------------------
 
       - name: 'Configure AWS credentials'
         uses: aws-actions/configure-aws-credentials@v1
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      # ------------------------------
-      # Setup Terraform
-      # ------------------------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # ------------------------------
-      # Terraform Init
-      # ------------------------------
       - name: Terraform Init
-        run: |
-          cd 02-securitygroups
-          terraform init -reconfigure
+        run: terraform init -reconfigure
+        working-directory: ${{ env.WORKING_DIR }}
 
-      # ------------------------------
-      # Terraform Plan
-      # ------------------------------
+      # ---------------------------------------------------
+      # Terraform Plan (Context aware)
+      # ---------------------------------------------------
       - name: Terraform Plan
         run: |
-          cd 02-securitygroups
-          terraform plan
-          
-      # ---------------------------------------------------
-      # Terraform Apply (only when TERRAFORMACTION = creation)
-      # ---------------------------------------------------
-      - name: Terraform Apply
-        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'creation' }}
-        run: |
-          cd 02-securitygroups
-          terraform apply -auto-approve
+          if [ "${{ github.event.inputs.TERRAFORM_ACTION }}" == "deletion" ]; then
+            terraform plan -destroy
+          else
+            terraform plan
+          fi
+        working-directory: ${{ env.WORKING_DIR }}
 
       # ---------------------------------------------------
-      # Terraform Destroy (only when TERRAFORMACTION = deletion)
+      # Terraform Apply (only when action is 'creation')
+      # ---------------------------------------------------
+      - name: Terraform Apply
+        if: github.event.inputs.TERRAFORM_ACTION == 'creation'
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.WORKING_DIR }}
+
+      # ---------------------------------------------------
+      # Terraform Destroy (only when action is 'deletion')
       # ---------------------------------------------------
       - name: Terraform Destroy
-        if: ${{ github.event.inputs.TERRAFORM_ACTION == 'deletion' }}
-        run: |
-          echo "Manual approval required before destroy."
-          cd 02-securitygroups
-          terraform destroy -auto-approve
+        if: github.event.inputs.TERRAFORM_ACTION == 'deletion'
+        run: terraform destroy -auto-approve
+        working-directory: ${{ env.WORKING_DIR }}
