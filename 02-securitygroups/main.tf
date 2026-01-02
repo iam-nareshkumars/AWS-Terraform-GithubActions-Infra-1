@@ -1,6 +1,3 @@
-
-
-
 module "base_securitygroup" {
   for_each = local.sg_map
   source = "git::https://github.com/Iam-naresh-devops/SG_module.git"
