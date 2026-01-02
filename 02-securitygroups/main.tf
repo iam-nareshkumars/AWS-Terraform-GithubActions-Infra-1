@@ -7,13 +7,7 @@ module "securitygroup" {
   sg_name =  each.value.sg_name
   sg_description =  each.value.sg_description
   #ingress
-
-
-  from_port = 
-  to_port = each.value.to_port
-  protocol = each.value.protocol
-  security_group_id = each.value.sg_name
-  source_security_group_id = var.source_security_group_id
+  ingress_rules = each.value.ingress_rules
   
   }
 
