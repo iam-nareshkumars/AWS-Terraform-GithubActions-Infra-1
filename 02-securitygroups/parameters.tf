@@ -8,9 +8,9 @@ resource "aws_ssm_parameter" "sg_params" {
 }
 
 #Fetch the Security Group ID from SSM
-/* data "aws_ssm_parameter" "security_group_id" {
+data "aws_ssm_parameter" "security_group_id" {
   name = "/${var.project}/${var.environment}/vpn_sg_id" # The exact name used in SSM
-} */
+}
 
 
 
