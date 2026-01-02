@@ -59,7 +59,7 @@ data "aws_ssm_parameter" "private_subnet_ids" {
  */
 
 
-# output "ssm_retrieved_sg_id" {
-#   value       = data.aws_ssm_parameter.security_group_id.value
-#   description = "The SG ID fetched from SSM Parameter Store"
-# }
+output "ssm_retrieved_sg_id" {
+  value       = data.aws_ssm_parameter.security_group_id.value
+  description = "The SG ID fetched from SSM Parameter Store"
+}
