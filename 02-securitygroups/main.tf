@@ -9,7 +9,7 @@ module "securitygroup" {
   #ingress
 
 
-  from_port = each.value.from_port
+  from_port = 
   to_port = each.value.to_port
   protocol = each.value.protocol
   security_group_id = each.value.sg_name

@@ -3,12 +3,29 @@ locals {
     catalogue = {
       
       sg_name       = "catalogue"
-      sg_description = "incoming from VPN"
-       from_port        = 22
-      to_port          = 22
-      protocol         =  "tcp"
-      source_security_group_id        = "sg-02efeff1df99019a6"
+      sg_description = "Security group for catalogue"
+
+      ingress_rules = {
+         vpn = {
+           from_port                = 22
+           to_port                  = 22
+          source_security_group_id =  "vpn" #module.securitygroup["vpn"].sg_id
+          description              = "incoming from vpn" }
+
+            app_lb = {
+             from_port   = 8080
+             to_port     = 8080
+    
+             source_security_group_id = "app-lb" #module.securitygroup["app-lb"].sg_id
+             description = "incoming from app-lb"   }
+}
+
+
+  
     }
+
+
+    
 
 
     web_alb = {
