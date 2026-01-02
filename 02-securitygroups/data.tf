@@ -57,15 +57,26 @@ data "aws_ssm_parameter" "private_subnet_ids" {
   name = "/${var.project}/${var.environment}/private_subnet_ids"
 }
  */
-data "aws_security_group"  "sg" {
-  name = "vpn" # or use tags
+data "aws_security_group" "vpn" {
   filter {
     name   = "tag:component"
     values = ["vpn"]
   }
+
+  vpc_id = data.aws_vpc.default.id
+}
+
+data "aws_security_group" "app_lb" {
+  filter {
+    name   = "tag:component"
+    values = ["app-lb"]
+  }
+
+  vpc_id = data.aws_vpc.default.id
 }
 
 
+
 output "vpn_sg_id" {
-   value = data.aws_security_group.base_securitygroup.id
+   value = data.aws_security_group.vpn.id
  }

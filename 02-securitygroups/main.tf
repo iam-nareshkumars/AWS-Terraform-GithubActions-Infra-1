@@ -7,7 +7,7 @@ module "base_securitygroup" {
   sg_name =  each.value.sg_name
   sg_description =  each.value.sg_description
   #ingress
-  ingress_rules = {}
+  ingress_rules = each.value.ingress_rules
   
   }
 
