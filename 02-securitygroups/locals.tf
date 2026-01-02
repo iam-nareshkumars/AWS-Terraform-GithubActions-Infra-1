@@ -16,7 +16,7 @@ locals {
              from_port   = 8080
              to_port     = 8080
     
-             source_security_group_id = data.aws_ssm_parameter.catalogue_in
+             source_security_group_id = data.aws_ssm_parameter.catalogue_in_app_lb.value
              description = "incoming from app-lb"   }
 }
 
