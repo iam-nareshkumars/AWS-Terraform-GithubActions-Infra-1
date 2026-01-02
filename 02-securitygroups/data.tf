@@ -66,4 +66,5 @@ data "aws_ssm_parameter" "security_group_id" {
 output "ssm_retrieved_sg_id" {
   value       = data.aws_ssm_parameter.security_group_id
   description = "The SG ID fetched from SSM Parameter Store"
+   sensitive = true
 }
