@@ -179,20 +179,20 @@ locals {
 
 locals {
   sg_ids = {
-    web_alb  = module.securitygroup["web_alb"].sg_id
-    app-lb   = module.securitygroup["app-lb"].sg_id
-    vpn      = module.securitygroup["vpn"].sg_id
-    mongodb  = module.securitygroup["mongodb"].sg_id
-    catalogue = module.securitygroup["catalogue"].sg_id
-    user     = module.securitygroup["user"].sg_id
-    cart     = module.securitygroup["cart"].sg_id
-    redis    = module.securitygroup["redis"].sg_id
-    rabbitmq = module.securitygroup["rabbitmq"].sg_id
-    mysql    = module.securitygroup["mysql"].sg_id
-    payment  = module.securitygroup["payment"].sg_id
-    shipping = module.securitygroup["shipping"].sg_id
-    ratings  = module.securitygroup["ratings"].sg_id
-    web      = module.securitygroup["web"].sg_id
+    web_alb  = module.base_securitygroup["web_alb"].sg_id
+    app-lb   = module.base_securitygroup["app-lb"].sg_id
+    vpn      = module.base_securitygroup["vpn"].sg_id
+    mongodb  = module.base_securitygroup["mongodb"].sg_id
+    catalogue = module.base_securitygroup["catalogue"].sg_id
+    user     = module.base_securitygroup["user"].sg_id
+    cart     = module.base_securitygroup["cart"].sg_id
+    redis    = module.base_securitygroup["redis"].sg_id
+    rabbitmq = module.base_securitygroup["rabbitmq"].sg_id
+    mysql    = module.base_securitygroup["mysql"].sg_id
+    payment  = module.base_securitygroup["payment"].sg_id
+    shipping = module.base_securitygroup["shipping"].sg_id
+    ratings  = module.base_securitygroup["ratings"].sg_id
+    web      = module.base_securitygroup["web"].sg_id
   }
 }
 
