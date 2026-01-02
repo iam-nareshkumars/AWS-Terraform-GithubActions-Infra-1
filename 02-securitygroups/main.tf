@@ -1,15 +1,4 @@
-resource "aws_ssm_parameter" "sg_params" {
-  for_each = local.sg_ids
 
-  name  = "/${var.project}/${var.environment}/${each.key}_sg_id"
-  type  = "String"
-  value = each.value
-}
-
-#Fetch the Security Group ID from SSM
-data "aws_ssm_parameter" "security_group_id" {
-  name = "/${var.project}/${var.environment}/vpn_sg_id" # The exact name used in SSM
-}
 
 
 module "base_securitygroup" {
